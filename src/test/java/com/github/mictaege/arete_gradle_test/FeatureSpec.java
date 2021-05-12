@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 
 import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
@@ -12,6 +13,7 @@ import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
+@Tag("internal")
 @Spec class FeatureSpec {
 
     @Feature class MyFeature {
