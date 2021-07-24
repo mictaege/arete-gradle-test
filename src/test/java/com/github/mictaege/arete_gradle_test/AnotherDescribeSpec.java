@@ -1,8 +1,5 @@
 package com.github.mictaege.arete_gradle_test;
 
-import static com.github.mictaege.arete.ScreenshotExtension.TestResult.FAILURE;
-import static com.github.mictaege.arete.ScreenshotExtension.TestResult.SUCCESS;
-
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.Describe;
@@ -13,7 +10,7 @@ import com.github.mictaege.arete.Spec;
 @Spec class AnotherDescribeSpec {
 
     @RegisterExtension
-    public ScreenshotExtension screenshots = new ScreenshotExtension(new DummyScreenshotTaker(), SUCCESS, FAILURE);
+    public ScreenshotExtension screenshots = new ScreenshotExtension(new DummyScreenshotTaker());
 
     @Describe class ADescription {
         @ItShould void doSomething() {

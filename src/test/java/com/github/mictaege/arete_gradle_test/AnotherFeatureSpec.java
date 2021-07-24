@@ -1,7 +1,5 @@
 package com.github.mictaege.arete_gradle_test;
 
-import static com.github.mictaege.arete.ScreenshotExtension.TestResult.FAILURE;
-import static com.github.mictaege.arete.ScreenshotExtension.TestResult.SUCCESS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -21,7 +19,7 @@ import com.github.mictaege.arete.When;
 @Spec class AnotherFeatureSpec {
 
     @RegisterExtension
-    public ScreenshotExtension screenshots = new ScreenshotExtension(new DummyScreenshotTaker(), SUCCESS, FAILURE);
+    public ScreenshotExtension screenshots = new ScreenshotExtension(new DummyScreenshotTaker());
 
     @Feature class MyFeature {
 
