@@ -27,9 +27,4 @@ class DummyScreenshotTaker implements ScreenshotTaker {
         }
     }
 
-    @Override
-    public String getFileExtension() {
-        return "png";
-    }
-
 }
