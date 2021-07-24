@@ -5,16 +5,21 @@ import static org.hamcrest.Matchers.is;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
 import com.github.mictaege.arete.Scenario;
+import com.github.mictaege.arete.ScreenshotExtension;
 import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
 @Tag("slow")
 @Spec class AnotherFeatureSpec {
+
+    @RegisterExtension
+    public ScreenshotExtension screenshots = new ScreenshotExtension(new DummyScreenshotTaker());
 
     @Feature class MyFeature {
 
