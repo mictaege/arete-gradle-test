@@ -73,7 +73,7 @@ import com.github.mictaege.arete.When;
                 @Override
                 protected void build() {
                     example(given(5), given(4), then(false));
-                    example(given(5), given(5), then(true));
+                    example(given(5), given(5), then(false));
                     example(given(5), given(6), then(true));
                 }
             }
