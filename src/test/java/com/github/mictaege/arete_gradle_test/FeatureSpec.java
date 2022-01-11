@@ -71,7 +71,7 @@ import com.github.mictaege.arete.When;
 
             class MyExamples extends ExampleSource {
                 @Override
-                protected void build() {
+                protected void init() {
                     example(given(5), given(4), then(false));
                     example(given(5), given(5), then(false));
                     example(given(5), given(6), then(true));
