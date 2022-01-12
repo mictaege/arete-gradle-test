@@ -18,12 +18,12 @@ import com.github.mictaege.arete.Spec;
         @ItShould void doSomething() {
         }
 
-        @Examples(desc = "Examples for doing something", pattern = "{0} * 2 => {1}", srcMethod = "doSomething")
+        @Examples(desc = "Examples for doing something", pattern = "{0} * 2 => {1}", srcMethod = "doSomethingExamples")
         void doSomething(final int a, final int expected) {
             assertThat(a * 2, is(expected));
         }
 
-        void doSomething(final ExampleSource s) {
+        void doSomethingExamples(final ExampleSource s) {
             s.example(s.given(5), s.then(10));
             s.example(s.given(10), s.then(20));
             s.example(s.given(20), s.then(40));

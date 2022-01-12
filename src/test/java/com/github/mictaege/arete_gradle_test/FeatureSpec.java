@@ -64,12 +64,12 @@ import com.github.mictaege.arete.When;
             @When void doing() {}
             @Then void expect() {}
 
-            @Examples(pattern = "{0} less then {1} => {2}", srcClass = MyExamples.class)
-            void myExamples(final int a, final int b, final boolean expected) {
+            @Examples(pattern = "{0} less then {1} => {2}", srcClass = DoSomethingExamples.class)
+            void doSomething(final int a, final int b, final boolean expected) {
                 assertThat(a <= b, is(expected));
             }
 
-            class MyExamples extends ExampleSource {
+            class DoSomethingExamples extends ExampleSource {
                 @Override
                 protected void init() {
                     example(given(5), given(4), then(false));
