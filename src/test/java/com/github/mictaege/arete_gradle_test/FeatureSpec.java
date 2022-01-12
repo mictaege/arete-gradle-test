@@ -15,12 +15,21 @@ import com.github.mictaege.arete.ExampleSource;
 import com.github.mictaege.arete.Examples;
 import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
+import com.github.mictaege.arete.Narrative;
 import com.github.mictaege.arete.Scenario;
 import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
 @Tag("internal")
+@Narrative({
+        "In order to perform arithmetic calculations",
+        "A calculator should provide the basic operations",
+        "- addition",
+        "- subtraction",
+        "- multiplication",
+        "- division"
+})
 @Spec class FeatureSpec {
 
     @Feature class MyFeature {
@@ -86,6 +95,10 @@ import com.github.mictaege.arete.When;
                 assertThat(8, is(15));
             }
 
+            @Narrative({
+                    "In order to calculate the area",
+                    "A circle should be squared"
+            })
             @Scenario class MyScenario {
                 @Given void aTest() {}
                 @When void doing() {}
