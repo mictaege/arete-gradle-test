@@ -23,9 +23,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     testImplementation("com.github.mictaege:arete:2022.2")
     testImplementation("org.hamcrest:hamcrest:2.2")
-    testImplementation("com.google.guava:guava:30.1.1-jre")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation("com.google.guava:guava:31.1-jre")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.1")
 }
 
 tasks.test {
