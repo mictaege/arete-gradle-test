@@ -25,39 +25,40 @@ import com.github.mictaege.arete.When;
 @Narrative({
         "In order to perform arithmetic calculations",
         "A calculator should provide the basic operations",
+        "- comparison",
         "- addition",
         "- subtraction",
         "- multiplication",
         "- division"
 })
-@Spec class FeatureSpec {
+@Spec class ArithmeticCalculationsSpec {
 
-    @Feature class MyFeature {
+    @Feature class Comparison {
 
-        @Scenario class MyScenario {
-            @Given void aTest() {}
-            @When void doing() {}
-            @Then void expect() {}
+        @Scenario class ComparingLocalDateTimes {
+            @Given void twoLocalDateTimes() {}
+            @When void compare() {}
+            @Then void theEarlierAndLaterShouldBeIdentified() {}
         }
 
-        @Examples(order = 1, pattern = "{0} before {1} => {2}", srcMethod = "myFirstExamples")
-        void myFirstExamples(final LocalDateTime start, final LocalDateTime end, final boolean expected) {
+        @Examples(order = 1, pattern = "{0} before {1} => {2}", srcMethod = "pastDatesExamples")
+        void comparingPastDates(final LocalDateTime start, final LocalDateTime end, final boolean expected) {
             assertThat(start.isBefore(end), is(expected));
         }
 
-        void myFirstExamples(final ExampleSource s) {
+        void pastDatesExamples(final ExampleSource s) {
             final Function<LocalDateTime, String> toStr = (d) -> ofPattern("dd.MM.yyyy HH:mm").format(d);
             s.example(s.given(now().minusMinutes(5), toStr) , s.given(now().minusMinutes(4), toStr), s.then(true));
             s.example(s.given(now().minusMinutes(5), toStr) , s.given(now().minusMinutes(5), toStr), s.then(false));
             s.example(s.given(now().minusMinutes(5), toStr) , s.given(now().minusMinutes(6), toStr), s.then(false));
         }
 
-        @Examples(order = 2, pattern = "{0} before {1} => {2}", srcMethod = "mySecondExamples")
-        void mySecondExamples(final LocalDateTime start, final LocalDateTime end, final boolean expected) {
+        @Examples(order = 2, pattern = "{0} before {1} => {2}", srcMethod = "futureDatesExamples")
+        void comparingFutureDates(final LocalDateTime start, final LocalDateTime end, final boolean expected) {
             assertThat(start.isBefore(end), is(expected));
         }
 
-        void mySecondExamples(final ExampleSource s) {
+        void futureDatesExamples(final ExampleSource s) {
             final Function<LocalDateTime, String> toStr = (d) -> ofPattern("dd.MM.yyyy HH:mm").format(d);
             s.example(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(4), toStr), s.then(false));
             s.example(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(5), toStr), s.then(false));
