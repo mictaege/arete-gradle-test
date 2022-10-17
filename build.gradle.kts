@@ -2,7 +2,6 @@ plugins {
     java
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
     id("com.github.mictaege.arete") version "2022.2"
-    
     `maven-publish`
     signing
 }
