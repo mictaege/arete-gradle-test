@@ -1,13 +1,13 @@
 plugins {
     java
     id("org.jetbrains.kotlin.jvm") version "1.6.21"
-    id("io.github.mictaege.arete") version "2022.4"
+    id("io.github.mictaege.arete") version "2022.5"
     `maven-publish`
     signing
 }
 
 group = "io.github.mictaege"
-version = "2022.4"
+version = "2022.5"
 
 tasks.wrapper {
     gradleVersion = "7.5.1"
@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    testImplementation("io.github.mictaege:arete:2022.4")
+    testImplementation("io.github.mictaege:arete:2022.5")
     testImplementation("org.hamcrest:hamcrest:2.2")
     testImplementation("com.google.guava:guava:31.1-jre")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.1")
