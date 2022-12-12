@@ -1,5 +1,11 @@
 package com.github.mictaege.arete_gradle_test;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.Describe;
@@ -14,6 +20,9 @@ import com.github.mictaege.arete.Spec;
 
     @Describe class ADescription {
         @ItShould void doSomething() {
+        }
+        @ItShould void notDoSomething() {
+            assertThat(5, is(7));
         }
     }
 
