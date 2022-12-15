@@ -24,6 +24,11 @@ import com.github.mictaege.arete.When;
     @Feature class MyFeature {
 
         @Scenario class MyScenario {
+
+            MyScenario() {
+                throw new UnsupportedOperationException();
+            }
+
             @Given void aTest() {}
             @When void doing() {}
             @Then void expect() {}
@@ -33,7 +38,7 @@ import com.github.mictaege.arete.When;
 
     @Feature class MyOtherFeature {
 
-        @Scenario class MyScenario {
+        @Scenario @Disabled class MyDisabledScenario {
             @Given void aTest() {}
             @When void doing() {}
             @Then void expect() {}
