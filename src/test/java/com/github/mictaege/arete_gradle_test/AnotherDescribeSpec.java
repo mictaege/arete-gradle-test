@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.is;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.Describe;
@@ -21,7 +22,7 @@ import com.github.mictaege.arete.Spec;
     @Describe class ADescription {
         @ItShould void doSomething() {
         }
-        @ItShould void notDoSomething() {
+        @ItShould @Disabled void notDoSomething() {
             assertThat(5, is(7));
         }
     }
