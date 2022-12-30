@@ -17,6 +17,7 @@ import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
 import com.github.mictaege.arete.Narrative;
 import com.github.mictaege.arete.Scenario;
+import com.github.mictaege.arete.SeeAlso;
 import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
@@ -100,6 +101,10 @@ import com.github.mictaege.arete.When;
                     "In order to calculate the area",
                     "A circle should be squared"
             })
+            @SeeAlso(XDescribeSpec.class)
+            @SeeAlso(DescribeSpec.ADescription.class)
+            @SeeAlso(AnotherDescribeSpec.ADescription.class)
+            @SeeAlso(Comparison.ComparingLocalDateTimes.class)
             @Scenario class MyScenario {
                 @Given void aTest() {}
                 @When void doing() {}

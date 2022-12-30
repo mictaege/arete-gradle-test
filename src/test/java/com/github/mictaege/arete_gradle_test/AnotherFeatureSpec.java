@@ -11,11 +11,13 @@ import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
 import com.github.mictaege.arete.Scenario;
 import com.github.mictaege.arete.ScreenshotExtension;
+import com.github.mictaege.arete.SeeAlso;
 import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
 @Tag("slow")
+@SeeAlso(AnotherDescribeSpec.class)
 @Spec class AnotherFeatureSpec {
 
     @RegisterExtension
@@ -23,6 +25,7 @@ import com.github.mictaege.arete.When;
 
     @Feature class MyFeature {
 
+        @SeeAlso(XDescribeSpec.class)
         @Scenario class MyScenario {
 
             MyScenario() {
