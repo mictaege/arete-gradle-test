@@ -11,6 +11,8 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 
+import com.github.mictaege.arete.ExampleGrid;
+import com.github.mictaege.arete.ExampleGridSource;
 import com.github.mictaege.arete.ExampleSource;
 import com.github.mictaege.arete.Examples;
 import com.github.mictaege.arete.Feature;
@@ -54,16 +56,16 @@ import com.github.mictaege.arete.When;
             s.example(s.given(now().minusMinutes(5), toStr) , s.given(now().minusMinutes(6), toStr), s.then(false));
         }
 
-        @Examples(order = 2, pattern = "{0} before {1} => {2}", srcMethod = "futureDatesExamples")
+        @ExampleGrid(order = 2, columns = {"Start", "End", "Result"}, srcMethod = "futureDatesExamples")
         void comparingFutureDates(final LocalDateTime start, final LocalDateTime end, final boolean expected) {
             assertThat(start.isBefore(end), is(expected));
         }
 
-        void futureDatesExamples(final ExampleSource s) {
+        void futureDatesExamples(final ExampleGridSource s) {
             final Function<LocalDateTime, String> toStr = (d) -> ofPattern("dd.MM.yyyy HH:mm").format(d);
-            s.example(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(4), toStr), s.then(false));
-            s.example(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(5), toStr), s.then(false));
-            s.example(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(6), toStr), s.then(true));
+            s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(4), toStr), s.then(false));
+            s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(5), toStr), s.then(false));
+            s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(6), toStr), s.then(true));
         }
 
     }

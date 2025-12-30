@@ -1,3 +1,5 @@
+import com.github.mictaege.arete_gradle.CatppuccinFrappeColors
+
 plugins {
     java
     id("org.jetbrains.kotlin.jvm") version "1.9.22"
@@ -25,6 +27,10 @@ dependencies {
     testImplementation("com.google.guava:guava:33.2.0-jre")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+}
+
+arete {
+    colorScheme = CatppuccinFrappeColors()
 }
 
 tasks.test {
