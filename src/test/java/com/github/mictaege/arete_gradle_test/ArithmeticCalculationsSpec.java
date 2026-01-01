@@ -10,7 +10,10 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
+import com.github.mictaege.arete.ExampleCsv;
+import com.github.mictaege.arete.ExampleCsvSource;
 import com.github.mictaege.arete.ExampleGrid;
 import com.github.mictaege.arete.ExampleGridSource;
 import com.github.mictaege.arete.ExampleSource;
@@ -19,6 +22,7 @@ import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
 import com.github.mictaege.arete.Narrative;
 import com.github.mictaege.arete.Scenario;
+import com.github.mictaege.arete.ScreenshotExtension;
 import com.github.mictaege.arete.SeeAlso;
 import com.github.mictaege.arete.Spec;
 import com.github.mictaege.arete.Then;
@@ -35,6 +39,9 @@ import com.github.mictaege.arete.When;
         "- division"
 })
 @Spec class ArithmeticCalculationsSpec {
+
+    @RegisterExtension
+    public ScreenshotExtension screenshots = new ScreenshotExtension(new ErrorScreenshotTaker());
 
     @Feature class Comparison {
 
@@ -66,6 +73,45 @@ import com.github.mictaege.arete.When;
             s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(4), toStr), s.then(false));
             s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(5), toStr), s.then(false));
             s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(6), toStr), s.then(true));
+        }
+
+        @ExampleCsv(order = 3, columns = {"First", "Second", "Larger"}, csvData
+                = "lion, cat, lion" + "\n"
+                + "dog, bird, bird" + "\n"
+                + "bear, eagle, bear" + "\n"
+                + "fish, shark, shark")
+        void comparingLargerStrings(final String first, final String second, final String larger) {
+            assertThat(maxString(first, second), is(larger));
+        }
+
+        @ExampleCsv(order = 4, delimiter = ';', columns = {"First", "Second", "Smaller"}, srcMethod = "smallerCsvData")
+        void comparingSmallerStrings(final String first, final String second, final String smaller) {
+            assertThat(minString(first, second), is(smaller));
+        }
+
+        private void smallerCsvData(final ExampleCsvSource source) {
+            source.setCsvData(
+                    "cat; lion; cat" + "\n"
+                    + "bird; dog; dog" + "\n"
+                    + "bear; eagle; eagle" + "\n"
+                    + "shark; fish; fish");
+        }
+
+        @ExampleCsv(order = 5, delimiter = ';', columns = {"First", "Second", "Equal Size?"}, csvResourcePath = "com/github/mictaege/arete_gradle_test/equalCsvData.csv")
+        void comparingEqualSizedStrings(final String first, final String second, final String equal) {
+            assertThat(equalString(first, second), is(equal));
+        }
+
+        private String maxString(final String a, final String b) {
+            return a.length() > b.length() ? a : b;
+        }
+
+        private String minString(final String a, final String b) {
+            return a.length() < b.length() ? a : b;
+        }
+
+        private String equalString(final String a, final String b) {
+            return a.length() == b.length() ? "true" : "false";
         }
 
     }
