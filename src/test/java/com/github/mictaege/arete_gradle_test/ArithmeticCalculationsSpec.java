@@ -42,7 +42,17 @@ import com.github.mictaege.arete.When;
         "com/github/mictaege/arete_gradle_test/stars1.jpeg",
         "com/github/mictaege/arete_gradle_test/stars2.jpeg",
         "com/github/mictaege/arete_gradle_test/stars3.jpeg"
-    }
+    },
+    plantUml = """
+            @startuml
+            class Car
+            
+            Driver - Car : drives >
+            Car *- Wheel : have 4 >
+            Car -- Person : < owns
+            
+            @enduml
+            """
 )
 @Spec class ArithmeticCalculationsSpec {
 
