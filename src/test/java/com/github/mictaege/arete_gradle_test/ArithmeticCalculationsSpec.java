@@ -41,7 +41,8 @@ import com.github.mictaege.arete.When;
     imageResourcePath = {
         "com/github/mictaege/arete_gradle_test/stars1.jpeg",
         "com/github/mictaege/arete_gradle_test/stars2.jpeg",
-        "com/github/mictaege/arete_gradle_test/stars3.jpeg"
+        "com/github/mictaege/arete_gradle_test/stars3.jpeg",
+        "com/github/mictaege/arete_gradle_test/stars4.jpeg"
     },
     plantUml = """
             @startuml
@@ -52,7 +53,13 @@ import com.github.mictaege.arete.When;
             Car -- Person : < owns
             
             @enduml
-            """
+            """,
+    attachmentResourcePath = {
+        "com/github/mictaege/arete_gradle_test/Arete.pdf",
+        "com/github/mictaege/arete_gradle_test/stars1.jpeg",
+        "com/github/mictaege/arete_gradle_test/stars2.jpeg",
+        "com/github/mictaege/arete_gradle_test/stars.7z"
+    }
 )
 @Spec class ArithmeticCalculationsSpec {
 
