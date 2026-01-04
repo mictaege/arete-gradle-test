@@ -155,7 +155,50 @@ import com.github.mictaege.arete.When;
                     "In order to calculate the area",
                     "A circle should be squared"
                 },
-                imageResourcePath = "com/github/mictaege/arete_gradle_test/stars4.jpeg"
+                imageResourcePath = "com/github/mictaege/arete_gradle_test/stars4.jpeg",
+                plantUml = {
+                    """
+                        @startuml
+                            participant User
+                            User -> A: DoWork
+                            activate A
+                    
+                            A -> B: << createRequest >>
+                            activate B
+                    
+                            B -> C: DoWork
+                            activate C
+                            C --> B: WorkDone
+                            destroy C
+                    
+                            B --> A: RequestCreated
+                            deactivate B
+                    
+                            A -> User: Done
+                            deactivate A
+                        @enduml
+                    """,
+                    """
+                        @startuml
+                            left to right direction
+                            actor Guest as g
+                            package Professional {
+                              actor Chef as c
+                              actor "Food Critic" as fc
+                            }
+                            package Restaurant {
+                              usecase "Eat Food" as UC1
+                              usecase "Pay for Food" as UC2
+                              usecase "Drink" as UC3
+                              usecase "Review" as UC4
+                            }
+                            fc --> UC4
+                            g --> UC1
+                            g --> UC2
+                            g --> UC3
+                        @enduml
+                    """
+                }
             )
             @SeeAlso(XDescribeSpec.class)
             @SeeAlso(DescribeSpec.ADescription.class)
