@@ -29,7 +29,7 @@ import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
 @Tag("internal")
-@Narrative({
+@Narrative(value = {
         "In order to perform arithmetic calculations",
         "A calculator should provide the basic operations",
         "- comparison",
@@ -37,7 +37,13 @@ import com.github.mictaege.arete.When;
         "- subtraction",
         "- multiplication",
         "- division"
-})
+    },
+    imageResourcePath = {
+        "com/github/mictaege/arete_gradle_test/stars1.jpeg",
+        "com/github/mictaege/arete_gradle_test/stars2.jpeg",
+        "com/github/mictaege/arete_gradle_test/stars3.jpeg"
+    }
+)
 @Spec class ArithmeticCalculationsSpec {
 
     @RegisterExtension
@@ -145,10 +151,12 @@ import com.github.mictaege.arete.When;
                 assertThat(8, is(15));
             }
 
-            @Narrative({
+            @Narrative(value = {
                     "In order to calculate the area",
                     "A circle should be squared"
-            })
+                },
+                imageResourcePath = "com/github/mictaege/arete_gradle_test/stars4.jpeg"
+            )
             @SeeAlso(XDescribeSpec.class)
             @SeeAlso(DescribeSpec.ADescription.class)
             @SeeAlso(AnotherDescribeSpec.ADescription.class)
