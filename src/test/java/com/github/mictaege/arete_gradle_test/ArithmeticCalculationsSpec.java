@@ -29,15 +29,25 @@ import com.github.mictaege.arete.Then;
 import com.github.mictaege.arete.When;
 
 @Tag("internal")
-@Narrative(value = {
-        "In order to perform arithmetic calculations",
-        "A calculator should provide the basic operations",
-        "- comparison",
-        "- addition",
-        "- subtraction",
-        "- multiplication",
-        "- division"
-    },
+@Narrative(value = """
+        *In order* to perform [arithmetic](https://de.wikipedia.org/wiki/Arithmetik) calculations
+        
+        A calculator should provide the basic operations
+        - comparison
+        - addition
+        - subtraction
+        - multiplication
+        - division
+        ```
+        Examples:
+        | operation | result |
+        |-----------|--------|
+        | 1 + 1     | 2      |
+        | 2 - 1     | 1      |
+        | 2 * 2     | 4      |
+        | 4 / 2     | 2      |
+        ```
+        """,
     imageResourcePath = {
         "com/github/mictaege/arete_gradle_test/stars1.jpeg",
         "com/github/mictaege/arete_gradle_test/stars2.jpeg",
