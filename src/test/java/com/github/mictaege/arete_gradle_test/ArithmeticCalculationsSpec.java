@@ -10,6 +10,7 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.ExampleCsv;
@@ -108,11 +109,13 @@ import com.github.mictaege.arete.When;
             s.row(s.given(now().plusMinutes(5), toStr) , s.given(now().plusMinutes(6), toStr), s.then(true));
         }
 
-        @ExampleCsv(order = 3, columns = {"First", "Second", "Larger"}, csvData
-                = "lion, cat, lion" + "\n"
-                + "dog, bird, bird" + "\n"
-                + "bear, eagle, bear" + "\n"
-                + "fish, shark, shark")
+        @ExampleCsv(order = 3, columns = {"First", "Second", "Larger"},
+                csvData = """
+                lion, cat, lion
+                dog, bird, bird
+                bear, eagle, bear
+                fish, shark, shark
+                """)
         void comparingLargerStrings(final String first, final String second, final String larger) {
             assertThat(maxString(first, second), is(larger));
         }
