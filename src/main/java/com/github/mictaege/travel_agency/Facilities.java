@@ -1,0 +1,5 @@
+package com.github.mictaege.travel_agency;
+
+public enum Facilities {
+    SHOWER, BATHROBE, HAIRDRYER, TELEVISION, WIFI, AIR_CONDITIONING, MINI_BAR, SAFE, BALCONY, COFFEE_MAKER, IRON, DESK, TELEPHONE, ROOM_SERVICE, SLIPPERS
+}
