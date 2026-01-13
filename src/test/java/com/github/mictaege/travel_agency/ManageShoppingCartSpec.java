@@ -421,6 +421,7 @@ class ManageShoppingCartSpec {
 
 
     @Scenario
+    @SeeAlso(BookingProcessFlowSpec.class)
     class CheckOutAnOffer {
 
         private final BookingRepository repository = new BookingRepository();
