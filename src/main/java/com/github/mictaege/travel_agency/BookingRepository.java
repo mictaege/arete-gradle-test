@@ -75,8 +75,18 @@ public class BookingRepository {
         }
     }
 
-    public void checkOutFromShoppingCart(final Traveler traveler, final Booking offer) {
+    public List<PaymentMethods> checkOutFromShoppingCart(final Traveler traveler, final Booking offer) {
         offer.setState(BookingState.IN_CHECK_OUT);
+        return offer.getAccommodation().getPaymentMethods();
     }
 
+    public void initPayment(Traveler traveler, Booking offer, PaymentMethods paymentMethods) {
+        if (offer.getAccommodation().getPaymentMethods().contains(paymentMethods)) {
+            offer.setState(BookingState.CONFIRMED);
+            traveler.receiveConfirmation(offer);
+            traveler.receiveInvoice(offer);
+        } else {
+            throw new IllegalStateException("Payment method not secure");
+        }
+    }
 }

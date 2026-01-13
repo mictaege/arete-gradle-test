@@ -33,9 +33,12 @@ import com.github.mictaege.arete.When;
             """
             > As a *traveler* I want to *check and manage my shopping cart* to *start (or cancel) a booking*.
             """,
-        plantUml = {
+        plantUml =
                 """
                 @startuml
+                
+                left to right direction
+                
                 :Traveler:
                 Traveler --> (Check offer)
                 Traveler --> (Remove offer)
@@ -43,8 +46,6 @@ import com.github.mictaege.arete.When;
                 Traveler --> (Check out offer)
                 @enduml
                 """
-        }
-
 )
 @ActorTraveller @EntityOffer @EntityRoom
 class ManageShoppingCartSpec {
@@ -252,7 +253,7 @@ class ManageShoppingCartSpec {
                     80539 Munich
                     DE
                     """,
-                    roomMngr.setPopularity(roomMngr.setPricePerNight(new Room(2, KING, HAIRDRYER, BALCONY), 89.99), 8)
+                    new Room(2, KING, HAIRDRYER, BALCONY)
             ));
             final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
             offers.forEach(o -> repository.addToShoppingCart(traveler, o));
@@ -313,7 +314,7 @@ class ManageShoppingCartSpec {
                         80539 Munich
                         DE
                         """,
-                        roomMngr.setPopularity(roomMngr.setPricePerNight(new Room(2, KING, HAIRDRYER, BALCONY), 89.99), 8)
+                        new Room(2, KING, HAIRDRYER, BALCONY)
                 ));
                 final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
                 offers.forEach(o -> repository.addToShoppingCart(traveler, o));
@@ -375,7 +376,7 @@ class ManageShoppingCartSpec {
                             80539 Munich
                             DE
                             """,
-                            roomMngr.setPopularity(roomMngr.setPricePerNight(new Room(2, KING, HAIRDRYER, BALCONY), 89.99), 8)
+                            new Room(2, KING, HAIRDRYER, BALCONY)
                     ));
                     final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
                     offers.forEach(o -> repository.addToShoppingCart(traveler, o));
@@ -453,7 +454,7 @@ class ManageShoppingCartSpec {
                     80539 Munich
                     DE
                     """,
-                    roomMngr.setPopularity(roomMngr.setPricePerNight(new Room(2, KING, HAIRDRYER, BALCONY), 89.99), 8)
+                    new Room(2, KING, HAIRDRYER, BALCONY)
             ));
             final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
             offers.forEach(o -> repository.addToShoppingCart(traveler, o));

@@ -1,36 +1,19 @@
 package com.github.mictaege.travel_agency;
 
-import static com.github.mictaege.travel_agency.Bed.DOUBLE;
-import static com.github.mictaege.travel_agency.Bed.KING;
-import static com.github.mictaege.travel_agency.Bed.QUEEN;
-import static com.github.mictaege.travel_agency.Bed.SINGLE;
-import static com.github.mictaege.travel_agency.Facilities.BALCONY;
-import static com.github.mictaege.travel_agency.Facilities.BATHROBE;
-import static com.github.mictaege.travel_agency.Facilities.HAIRDRYER;
-import static com.github.mictaege.travel_agency.Facilities.SHOWER;
-import static com.github.mictaege.travel_agency.Facilities.TELEVISION;
-import static com.github.mictaege.travel_agency.Facilities.WIFI;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import com.github.mictaege.arete.*;
+import com.github.mictaege.arete.Feature;
+import org.junit.jupiter.api.condition.EnabledIf;
+import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Function;
 
-import org.junit.jupiter.api.extension.RegisterExtension;
-
-import com.github.mictaege.arete.ExampleGrid;
-import com.github.mictaege.arete.ExampleGridSource;
-import com.github.mictaege.arete.Feature;
-import com.github.mictaege.arete.Given;
-import com.github.mictaege.arete.Narrative;
-import com.github.mictaege.arete.Scenario;
-import com.github.mictaege.arete.ScreenshotExtension;
-import com.github.mictaege.arete.SeeAlso;
-import com.github.mictaege.arete.Spec;
-import com.github.mictaege.arete.Then;
-import com.github.mictaege.arete.When;
+import static com.github.mictaege.travel_agency.Bed.*;
+import static com.github.mictaege.travel_agency.Facilities.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @Spec
 @Narrative(
@@ -41,6 +24,9 @@ import com.github.mictaege.arete.When;
         plantUml = {
                 """
                 @startuml
+                
+                left to right direction
+                
                 :Traveler:
                 Traveler --> (Find available rooms)
                 Traveler --> (Select best offer from list)
@@ -204,8 +190,6 @@ class FindAndSelectRoomsSpec {
             }
 
         }
-
-
 
         @Scenario
         class DoNotListRoomsWithMissingFacilities {
@@ -371,6 +355,43 @@ class FindAndSelectRoomsSpec {
                         s.then(true, bFrmt)
                 );
             }
+        }
+
+        @Scenario
+        @EnabledIf(com.github.mictaege.travel_agency.Feature.MONITARIZATION)
+        @HiddenIfDisabled
+        class ShowAdvertisments {
+
+            private final BookingRepository repository = new BookingRepository();
+
+            private List<Offer> offers;
+
+            @Given
+            void someAvailableRoomsInMunich() {
+                repository.register(new Accommodation(
+                        """
+                        Hotel Krone
+                        Schlossallee 123
+                        80539 Munich
+                        DE
+                        """,
+                        new Room(1, SINGLE),
+                        new Room(2, DOUBLE)
+                ));
+            }
+
+            @When
+            void travelerLooksForAvailableRoomsInMunich() {
+                offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
+            }
+
+            @Then
+            void heShouldReceiveOffersForTheAvailableRoomsInMunichAndAdvertisements() {
+                assertThat(offers.size(), is(2));
+                assertThat(offers.get(1).getAccommodation().getName(), is("Hotel Krone"));
+                assertThat(offers.get(1).getRoom().getBed(), is(DOUBLE));
+            }
+
         }
 
     }
