@@ -37,7 +37,7 @@ import com.github.mictaege.arete.When;
                 Traveler --> (Check offer)
                 Traveler --> (Remove offer)
                 Traveler --> (Change offer)
-                Traveler --> (Book offer)
+                Traveler --> (Check out offer)
                 @enduml
                 """
         }
@@ -274,10 +274,10 @@ class ManageShoppingCartSpec {
     }
 
     @Feature
-    class ChangeOfferInShoppingCart {
+    class ChangeTimeOfStay {
 
         @Scenario
-        class ChangeOfferInShoppingCartSuccessfully {
+        class ChangeTimeOfStaySuccessfully {
 
             private final BookingRepository repository = new BookingRepository();
             private final RoomManager roomMngr = new RoomManager();
@@ -335,7 +335,7 @@ class ManageShoppingCartSpec {
         }
 
         @Scenario
-        class ChangeOfferInShoppingCartNotPossibleIfRoomNotAvailable {
+        class ChangeTimeOfStayNotPossibleIfRoomNotAvailable {
 
             @Scenario
             class ChangeOfferInShoppingCartSuccessfully {
@@ -416,5 +416,68 @@ class ManageShoppingCartSpec {
     }
 
 
+    @Scenario
+    class CheckOutAnOffer {
+
+        private final BookingRepository repository = new BookingRepository();
+        private final RoomManager roomMngr = new RoomManager();
+
+        private Traveler traveler;
+        private Booking offer;
+
+        @Given(1)
+        void aRegisteredTraveler() {
+            traveler = new Traveler(
+                    "Max",
+                    "Mustermann",
+                    "max-mustermann@gnogle.com",
+                    new Address(
+                            """
+                                Hauptstrasse 8"
+                                76131 Karlsruhe
+                                DE
+                                """
+                    )
+            );
+        }
+
+        @Given(2)
+        void someOffersInTheShoppingCart() {
+            repository.register(new Accommodation(
+                    """
+                    Hotel Krone
+                    Schlossallee 123
+                    80539 Munich
+                    DE
+                    """,
+                    roomMngr.setPopularity(roomMngr.setPricePerNight(new Room(2, KING, HAIRDRYER, BALCONY), 89.99), 8)
+            ));
+            final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
+            offers.forEach(o -> repository.addToShoppingCart(traveler, o));
+        }
+
+        @When(1)
+        void selectingAnOffer() {
+            offer = repository.getOffersFromShoppingCart(traveler).get(0);
+        }
+
+        @When(2)
+        void checkItOut() {
+            repository.checkOutFromShoppingCart(traveler, offer);
+        }
+
+        @Then(1)
+        void theOfferIsCheckedOut() {
+            assertThat(offer.getState(), is(BookingState.IN_CHECK_OUT));
+        }
+
+        @Then(2)
+        void theShoppingCartShouldNotContainTheOfferAnymore() {
+            var cart = repository.getOffersFromShoppingCart(traveler);
+            assertThat(cart.contains(offer), is(false));
+        }
+
+
+    }
 
 }

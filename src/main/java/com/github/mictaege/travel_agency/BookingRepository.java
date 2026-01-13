@@ -74,4 +74,9 @@ public class BookingRepository {
             throw new IllegalStateException("Cannot change time of stay");
         }
     }
+
+    public void checkOutFromShoppingCart(final Traveler traveler, final Booking offer) {
+        offer.setState(BookingState.IN_CHECK_OUT);
+    }
+
 }
