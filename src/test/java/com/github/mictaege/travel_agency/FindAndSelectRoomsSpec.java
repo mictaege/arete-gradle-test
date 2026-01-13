@@ -44,7 +44,7 @@ import com.github.mictaege.arete.When;
                 :Traveler:
                 Traveler --> (Find available rooms)
                 Traveler --> (Select best offer from list)
-                Traveler --> (Book selected room)
+                Traveler --> (Add to shopping cart)
                 @enduml
                 """,
                 """
@@ -56,7 +56,7 @@ import com.github.mictaege.arete.When;
                 repeat while (one offered room acceptable) is (no)
                 -> yes;
                 :Select room;
-                :Book room;
+                :Add to shopping cart;
                 stop
                 @enduml
                 """,
@@ -86,7 +86,7 @@ import com.github.mictaege.arete.When;
 
 )
 @ActorTraveller @EntityOffer @EntityRoom
-class FindAndBookRoomsSpec {
+class FindAndSelectRoomsSpec {
 
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
@@ -271,9 +271,9 @@ class FindAndBookRoomsSpec {
                     DE
                     """));
                 final var singleRoomOffer = new Offer(accommodation, singleRoom, LocalDate.of(2026, 1, 3), LocalDate.of(2026, 1, 6));
-                repository.bookRoom(traveler, singleRoomOffer);
+                repository.addToShoppingCart(traveler, singleRoomOffer);
                 final var doubleRoomOffer = new Offer(accommodation, doubleRoom, LocalDate.of(2026, 1, 7), LocalDate.of(2026, 1, 10));
-                repository.bookRoom(traveler, doubleRoomOffer);
+                repository.addToShoppingCart(traveler, doubleRoomOffer);
             }
 
             @When
@@ -317,7 +317,7 @@ class FindAndBookRoomsSpec {
                     DE
                     """));
             final var doubleRoomOffer = new Offer(accommodation, doubleRoom, bookedFrom, bookedTo);
-            repository.bookRoom(traveler, doubleRoomOffer);
+            repository.addToShoppingCart(traveler, doubleRoomOffer);
 
                 final var offers = repository.findRooms(1, "Munich", requestFrom, requestTo);
 
@@ -550,10 +550,10 @@ class FindAndBookRoomsSpec {
     @Scenario(3)
     @Narrative(
             """
-            If a *traveler* selects a *room* from the list of *offers* he can book the room.
+            If a *traveler* selects a *room* from the list of *offers* he can add the offer to the shopping cart.
             """
     )
-    class BookSelectedRoom {
+    class AddSelectedRoomToShoppingCart {
 
         private final BookingRepository repository = new BookingRepository();
 
@@ -609,8 +609,8 @@ class FindAndBookRoomsSpec {
         }
 
         @When(seq = 4, step = 2)
-        void booksTheSelectedRoom() {
-            repository.bookRoom(traveler, selectedOffer);
+        void addsItToTheShoppingCart() {
+            repository.addToShoppingCart(traveler, selectedOffer);
         }
 
         @Then(seq = 4, step = 1)

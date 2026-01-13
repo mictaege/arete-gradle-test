@@ -1,6 +1,7 @@
 package com.github.mictaege.travel_agency;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Booking {
@@ -10,6 +11,7 @@ public class Booking {
     private Room room;
     private LocalDate start;
     private LocalDate end;
+    private BookingState state;
 
     public String getId() {
         return id;
@@ -22,6 +24,7 @@ public class Booking {
         this.room = offer.getRoom();
         this.start = offer.getStart();
         this.end = offer.getEnd();
+        this.state = BookingState.OFFERED;
     }
 
     public Traveler getTraveler() {
@@ -54,5 +57,21 @@ public class Booking {
 
     public void setEnd(final LocalDate end) {
         this.end = end;
+    }
+
+    public BookingState getState() {
+        return state;
+    }
+
+    public void setState(final BookingState state) {
+        this.state = state;
+    }
+
+    public double getTotalCosts() {
+        if (start == null || end == null || room == null) {
+            return 0.0;
+        }
+        final long nights = ChronoUnit.DAYS.between(start, end);
+        return Math.round(Math.max(0, nights) * room.getPricePerNight() * 100.0) / 100.0;
     }
 }

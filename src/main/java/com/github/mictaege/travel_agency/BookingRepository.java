@@ -34,8 +34,8 @@ public class BookingRepository {
                 && (end.isAfter(booking.getStart()) || end.equals(booking.getStart()));
     }
 
-    public void bookRoom(final Traveler traveler,
-                         final Offer offer) {
+    public void addToShoppingCart(final Traveler traveler,
+                                  final Offer offer) {
         bookings.add(new Booking(traveler, offer));
     }
 
@@ -55,4 +55,23 @@ public class BookingRepository {
         return offers.stream().sorted(comparing(offer -> offer.getRoom().getPricePerNight())).collect(toList());
     }
 
+    public List<Booking> getOffersFromShoppingCart(final Traveler traveler) {
+        return bookings.stream()
+                .filter(b -> b.getTraveler().equals(traveler))
+                .filter(b -> b.getState() == BookingState.OFFERED)
+                .collect(toList());
+    }
+
+    public void removeOfferFromShoppingCart(final Traveler traveler, final Booking offer) {
+        bookings.remove(offer);
+    }
+
+    public void changeTimeOfStay(final Traveler traveler, final Booking offer, final LocalDate start, final LocalDate end) {
+        if (bookings.stream().noneMatch(b -> !offer.equals(b) && b.getRoom().equals(offer.getRoom()) && alreadyBooked(b, start, end))) {
+            offer.setStart(start);
+            offer.setEnd(end);
+        } else {
+            throw new IllegalStateException("Cannot change time of stay");
+        }
+    }
 }
