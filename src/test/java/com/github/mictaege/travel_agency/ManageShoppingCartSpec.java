@@ -10,12 +10,15 @@ import static org.hamcrest.Matchers.notNullValue;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.condition.DisabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.ExampleSource;
 import com.github.mictaege.arete.Examples;
 import com.github.mictaege.arete.Feature;
 import com.github.mictaege.arete.Given;
+import com.github.mictaege.arete.HiddenIfDisabled;
 import com.github.mictaege.arete.Narrative;
 import com.github.mictaege.arete.Scenario;
 import com.github.mictaege.arete.ScreenshotExtension;
