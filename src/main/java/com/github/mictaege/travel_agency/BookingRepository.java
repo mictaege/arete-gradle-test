@@ -75,12 +75,12 @@ public class BookingRepository {
         }
     }
 
-    public List<PaymentMethods> checkOutFromShoppingCart(final Traveler traveler, final Booking offer) {
+    public List<PaymentMethod> checkOutFromShoppingCart(final Traveler traveler, final Booking offer) {
         offer.setState(BookingState.IN_CHECK_OUT);
         return offer.getAccommodation().getPaymentMethods();
     }
 
-    public void initPayment(Traveler traveler, Booking offer, PaymentMethods paymentMethods) {
+    public void initPayment(Traveler traveler, Booking offer, PaymentMethod paymentMethods) {
         if (offer.getAccommodation().getPaymentMethods().contains(paymentMethods)) {
             offer.setState(BookingState.CONFIRMED);
             traveler.receiveConfirmation(offer);
@@ -89,4 +89,30 @@ public class BookingRepository {
             throw new IllegalStateException("Payment method not secure");
         }
     }
+
+    public List<Booking> listUpcomingBookings(final Traveler traveler) {
+        return bookings.stream()
+                .filter(b -> b.getTraveler().equals(traveler))
+                .filter(b -> b.getState() == BookingState.CONFIRMED)
+                .filter(b -> !b.getStart().isBefore(LocalDate.now()))
+                .collect(toList());
+    }
+
+    public List<Booking> listBookingHistory(final Traveler traveler) {
+        return bookings.stream()
+                .filter(b -> b.getTraveler().equals(traveler))
+                .filter(b -> b.getState() == BookingState.CONFIRMED)
+                .filter(b -> b.getEnd().isBefore(LocalDate.now()))
+                .collect(toList());
+    }
+
+    public void cancelBooking(final Traveler traveler, final Booking booking) {
+        if (LocalDate.now().isBefore(booking.getStart().minusDays(booking.getRoom().getDaysBeforeStartCancellationPossible()))) {
+            booking.setState(BookingState.CANCELLED);
+        } else {
+            throw new IllegalStateException("Cancellation is no longer possible");
+        }
+
+    }
+
 }

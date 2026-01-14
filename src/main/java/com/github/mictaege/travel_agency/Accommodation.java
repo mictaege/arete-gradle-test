@@ -1,17 +1,16 @@
 package com.github.mictaege.travel_agency;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import static com.github.mictaege.travel_agency.PaymentMethods.*;
+import static com.github.mictaege.travel_agency.PaymentMethod.*;
 
 public class Accommodation {
     private final String id = "ACMD-" + UUID.randomUUID();
     private final String name;
     private final Address address;
     private final List<Room> rooms;
-    private final List<PaymentMethods> paymentMethods;
+    private final List<PaymentMethod> paymentMethods;
 
     public Accommodation(final String fullAddress,
                          final Room... rooms) {
@@ -37,7 +36,7 @@ public class Accommodation {
         return rooms;
     }
 
-    public List<PaymentMethods> getPaymentMethods() {
+    public List<PaymentMethod> getPaymentMethods() {
         return paymentMethods;
     }
 }

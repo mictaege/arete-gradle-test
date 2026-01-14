@@ -12,6 +12,7 @@ import java.util.function.Function;
 import static com.github.mictaege.travel_agency.Bed.*;
 import static com.github.mictaege.travel_agency.Facilities.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -118,7 +119,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveOffersForTheAvailableRoomsInMunich() {
-                assertThat(offers.size(), is(1));
+                assertThat(offers, hasSize(1));
                 assertThat(offers.get(0).getAccommodation().getName(), is("Hotel Krone"));
                 assertThat(offers.get(0).getRoom().getBed(), is(DOUBLE));
             }
@@ -387,7 +388,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveOffersForTheAvailableRoomsInMunichAndAdvertisements() {
-                assertThat(offers.size(), is(2));
+                assertThat(offers, hasSize(2));
                 assertThat(offers.get(1).getAccommodation().getName(), is("Hotel Krone"));
                 assertThat(offers.get(1).getRoom().getBed(), is(DOUBLE));
             }
@@ -439,7 +440,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void theOffersShouldBeListedBeginningWithTheSmallestRoomsFirst() {
-                assertThat(offers.size(), is(3));
+                assertThat(offers, hasSize(3));
                 assertThat(offers.get(0).getRoom().getMaxPersons(), is(2));
                 assertThat(offers.get(1).getRoom().getMaxPersons(), is(4));
                 assertThat(offers.get(2).getRoom().getMaxPersons(), is(6));
@@ -478,7 +479,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void theOffersShouldBeListedBeginningWithTheMostPopularRoomsFirst() {
-                assertThat(offers.size(), is(3));
+                assertThat(offers, hasSize(3));
                 assertThat(offers.get(0).getRoom().getPopularity(), is(6));
                 assertThat(offers.get(1).getRoom().getPopularity(), is(4));
                 assertThat(offers.get(2).getRoom().getPopularity(), is(2));
@@ -517,7 +518,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void theOffersShouldBeListedBeginningWithTheCheapestRoomsFirst() {
-                assertThat(offers.size(), is(3));
+                assertThat(offers, hasSize(3));
                 assertThat(offers.get(0).getRoom().getPricePerNight(), is(65.59));
                 assertThat(offers.get(1).getRoom().getPricePerNight(), is(72.33));
                 assertThat(offers.get(2).getRoom().getPricePerNight(), is(89.99));
@@ -619,7 +620,7 @@ class FindAndSelectRoomsSpec {
 
         @Then(seq = 3, step = 1)
         void heShouldReceiveOffersForTheAvailableRoomsInMunich() {
-            assertThat(offers.size(), is(1));
+            assertThat(offers, hasSize(1));
             assertThat(offers.get(0).getAccommodation().getName(), is("Hotel Krone"));
             assertThat(offers.get(0).getRoom().getBed(), is(DOUBLE));
         }
@@ -637,7 +638,7 @@ class FindAndSelectRoomsSpec {
         @Then(seq = 4, step = 1)
         void theRoomIsAddedToTheTravelersShoppingCart() {
             final List<Booking> bookings = repository.findBookings(traveler);
-            assertThat(bookings.size(), is(1));
+            assertThat(bookings, hasSize(1));
             assertThat(bookings.get(0).getRoom(), is(selectedOffer.getRoom()));
         }
 

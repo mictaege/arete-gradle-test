@@ -12,6 +12,7 @@ public class Room {
     private int popularity;
     private double pricePerNight;
     private List<RoomImage> images;
+    private int daysBeforeStartCancellationPossible;
 
     public Room(final int maxPersons,
                 final Bed bed,
@@ -22,6 +23,7 @@ public class Room {
         this.state = RoomState.AVAILABLE;
         this.popularity = 0;
         this.images = List.of();
+        this.daysBeforeStartCancellationPossible = 3;
     }
 
     public Room(final int maxPersons,
@@ -34,6 +36,7 @@ public class Room {
         this.state = state;
         this.popularity = 0;
         this.images = List.of();
+        this.daysBeforeStartCancellationPossible = 3;
     }
 
     public String getId() {
@@ -84,4 +87,11 @@ public class Room {
         this.images = images;
     }
 
+    public int getDaysBeforeStartCancellationPossible() {
+        return daysBeforeStartCancellationPossible;
+    }
+
+    public void setDaysBeforeStartCancellationPossible(final int daysBeforeStartCancellationPossible) {
+        this.daysBeforeStartCancellationPossible = daysBeforeStartCancellationPossible;
+    }
 }

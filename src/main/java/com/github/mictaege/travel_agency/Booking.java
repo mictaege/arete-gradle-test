@@ -74,4 +74,5 @@ public class Booking {
         final long nights = ChronoUnit.DAYS.between(start, end);
         return Math.round(Math.max(0, nights) * room.getPricePerNight() * 100.0) / 100.0;
     }
+
 }

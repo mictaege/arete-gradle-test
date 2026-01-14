@@ -1,8 +1,7 @@
 package com.github.mictaege.travel_agency;
 
 import com.github.mictaege.arete.*;
-import com.github.mictaege.arete.Feature;
-import org.hamcrest.Matchers;
+
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.time.LocalDate;
@@ -82,7 +81,7 @@ import static org.hamcrest.Matchers.*;
 
 )
 @ActorTraveller @ActorAccommodation @ActorPaymentService @EntityRoom @FlowBooking
-class BookingProcessFlowSpec {
+class BookingProcessSpec {
 
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
@@ -91,11 +90,10 @@ class BookingProcessFlowSpec {
     class SuccessfulBooking {
 
         private final BookingRepository repository = new BookingRepository();
-        private final RoomManager roomMngr = new RoomManager();
 
         private Traveler traveler;
         private Booking offer;
-        private List<PaymentMethods> paymentMethods;
+        private List<PaymentMethod> paymentMethods;
 
         @Given(seq = 1, step = 1)
         void aRegisteredTraveler() {
@@ -137,15 +135,20 @@ class BookingProcessFlowSpec {
 
         @When(seq = 2, step = 1)
         void travelerSelectsASecurePaymentMethod() {
-            repository.initPayment(traveler, offer, PaymentMethods.PAYPAL);
+            repository.initPayment(traveler, offer, PaymentMethod.PAYPAL);
         }
 
         @Then(seq = 3, step = 1)
+        void theBookingIsConfirmed() {
+            assertThat(offer.getState(), is(BookingState.CONFIRMED));
+        }
+
+        @Then(seq = 3, step = 2)
         void theTravelerReceivesAConfirmation() {
             assertThat(traveler.getConfirmedBookings(), contains(offer));
         }
 
-        @Then(seq = 3, step = 2)
+        @Then(seq = 3, step = 3)
         void theTravelerReceivesAnInvoice() {
             assertThat(traveler.getInvoicedBookings(), contains(offer));
         }
@@ -156,11 +159,10 @@ class BookingProcessFlowSpec {
     class UnsecurePaymentMethod {
 
         private final BookingRepository repository = new BookingRepository();
-        private final RoomManager roomMngr = new RoomManager();
 
         private Traveler traveler;
         private Booking offer;
-        private List<PaymentMethods> paymentMethods;
+        private List<PaymentMethod> paymentMethods;
         private Exception invalidPayment;
 
         @Given(seq = 1, step = 1)
@@ -204,7 +206,7 @@ class BookingProcessFlowSpec {
         @When(seq = 2, step = 1)
         void travelerSelectsAnUnsecurePaymentMethod() {
             try {
-                repository.initPayment(traveler, offer, PaymentMethods.INVOICE);
+                repository.initPayment(traveler, offer, PaymentMethod.INVOICE);
             } catch (final Exception e) {
                 invalidPayment = e;
             }
@@ -212,7 +214,7 @@ class BookingProcessFlowSpec {
         }
 
         @Then(seq = 3, step = 1)
-        void theTravelerReceivesAErrorMessage() {
+        void theTravelerReceivesAnErrorMessage() {
             assertThat(invalidPayment, is(notNullValue()));
             assertThat(invalidPayment.getMessage(), is("Payment method not secure"));
         }
