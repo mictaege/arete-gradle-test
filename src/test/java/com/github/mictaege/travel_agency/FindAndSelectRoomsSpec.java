@@ -2,6 +2,8 @@ package com.github.mictaege.travel_agency;
 
 import com.github.mictaege.arete.*;
 import com.github.mictaege.arete.Feature;
+
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.condition.EnabledIf;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -12,6 +14,7 @@ import java.util.function.Function;
 import static com.github.mictaege.travel_agency.Bed.*;
 import static com.github.mictaege.travel_agency.Facilities.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -154,7 +157,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveNoOffersForRoomsInBerlin() {
-                assertThat(offers.isEmpty(), is(true));
+                assertThat(offers, is(empty()));
             }
 
         }
@@ -187,7 +190,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveNoOffersForSmallerRooms() {
-                assertThat(offers.isEmpty(), is(true));
+                assertThat(offers, is(empty()));
             }
 
         }
@@ -209,7 +212,7 @@ class FindAndSelectRoomsSpec {
                         DE
                         """,
                         new Room(2, KING, SHOWER, BATHROBE, HAIRDRYER, TELEVISION, WIFI),
-                        new Room(2, QUEEN, SHOWER, BATHROBE,HAIRDRYER, TELEVISION, WIFI)
+                        new Room(2, QUEEN, SHOWER, BATHROBE,HAIRDRYER, TELEVISION, BALCONY)
                 ));
             }
 
@@ -220,7 +223,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveNoOffersForRoomsMissingTheBalcony() {
-                assertThat(offers.isEmpty(), is(true));
+                assertThat(offers, is(empty()));
             }
 
         }
@@ -268,7 +271,7 @@ class FindAndSelectRoomsSpec {
 
             @Then
             void heShouldReceiveNoOffersForAlreadyBookedRooms() {
-                assertThat(offers.isEmpty(), is(true));
+                assertThat(offers, is(empty()));
             }
 
         @ExampleGrid(

@@ -2,6 +2,7 @@ package com.github.mictaege.travel_agency;
 
 import com.github.mictaege.arete.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.time.LocalDate;
@@ -130,7 +131,7 @@ class BookingProcessSpec {
 
         @Then(seq = 1, step = 1)
         void theAccommodationOffersSomePaymentMethods() {
-            assertThat(paymentMethods.isEmpty(), is(false));
+            assertThat(paymentMethods, is(not(empty())));
         }
 
         @When(seq = 2, step = 1)
@@ -200,7 +201,7 @@ class BookingProcessSpec {
 
         @Then(seq = 1, step = 1)
         void theAccommodationOffersSomePaymentMethods() {
-            assertThat(paymentMethods.isEmpty(), is(false));
+            assertThat(paymentMethods, is(not(empty())));
         }
 
         @When(seq = 2, step = 1)
@@ -217,6 +218,36 @@ class BookingProcessSpec {
         void theTravelerReceivesAnErrorMessage() {
             assertThat(invalidPayment, is(notNullValue()));
             assertThat(invalidPayment.getMessage(), is("Payment method not secure"));
+        }
+
+    }
+
+    @Scenario
+    @Disabled("Not implemented yet")
+    class BookingProcessInterrupted {
+
+        @Given(seq = 1, step = 1)
+        void aRegisteredTraveler() {
+        }
+
+        @When(seq = 1, step = 1)
+        void travelerChecksOutAnOffer() {
+        }
+
+        @Then(seq = 1, step = 1)
+        void theAccommodationOffersSomePaymentMethods() {
+        }
+
+        @When(seq = 2, step = 1)
+        void travelerSelectsASecurePaymentMethod() {
+        }
+
+        @When(seq = 2, step = 2)
+        void theBookingIsInterrupted() {
+        }
+
+        @Then(seq = 3, step = 1)
+        void theTravelerReceivesAnErrorMessage() {
         }
 
     }

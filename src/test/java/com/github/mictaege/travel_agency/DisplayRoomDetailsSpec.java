@@ -55,7 +55,7 @@ class DisplayRoomDetailsSpec {
 
         @ItShould(1)
         void displayTheRoomsPopularity() {
-            assertThat(room.getPopularity(), is(9));
+            assertThat(room.getPopularity(), is(8));
         }
 
         @ItShould(2)
