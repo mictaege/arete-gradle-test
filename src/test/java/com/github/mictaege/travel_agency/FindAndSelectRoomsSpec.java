@@ -364,7 +364,7 @@ class FindAndSelectRoomsSpec {
         @Scenario
         @EnabledIf(com.github.mictaege.travel_agency.Feature.MONITARIZATION)
         @HiddenIfDisabled
-        class ShowAdvertisments {
+        class ShowAdvertisement {
 
             private final BookingRepository repository = new BookingRepository();
 
