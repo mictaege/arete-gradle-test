@@ -36,7 +36,9 @@ dependencies {
 }
 
 arete {
-    colorScheme = CatppuccinFrappeColors()
+    colorScheme = object : CatppuccinFrappeColors() {
+        override var arete_plantuml_theme = "amiga"
+    }
 }
 
 tasks.test {
