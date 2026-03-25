@@ -1,4 +1,4 @@
-package com.github.mictaege.arete_gradle_test;
+package com.github.mictaege.travel_agency;
 
 import static com.github.mictaege.arete.ScreenshotTaker.TestResult.FAILURE;
 import static com.github.mictaege.arete.ScreenshotTaker.TestResult.SUCCESS;
@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import com.github.mictaege.arete.ScreenshotTaker;
 import com.google.common.io.Files;
 
-class DummyScreenshotTaker implements ScreenshotTaker {
+class UiDummyScreenshotTaker implements ScreenshotTaker {
 
     @Override
     public Set<TestResult> takeWhen() {
@@ -21,7 +21,7 @@ class DummyScreenshotTaker implements ScreenshotTaker {
     @Override
     public byte[] getImageBytes() {
         try {
-            return Files.asByteSource(new File(getClass().getResource("Dummy.png").toURI())).read();
+            return Files.asByteSource(new File(getClass().getResource("ui-dummy.png").toURI())).read();
         } catch (final Exception e) {
             return new byte[0];
         }
