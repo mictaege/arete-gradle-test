@@ -53,7 +53,6 @@ import static org.hamcrest.Matchers.notNullValue;
                 """
                 @startsalt
                 {
-                    scale 16
                     {
                         ^2 Pers.^ | "City, Postalcode, ..." | ^2026-01-06^ | ^2026-01-18^ | [Search <&magnifying-glass>]
                     }
