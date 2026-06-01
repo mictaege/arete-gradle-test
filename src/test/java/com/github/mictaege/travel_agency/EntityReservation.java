@@ -12,7 +12,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(TYPE)
 @Retention(RUNTIME)
-@Tag("room")
+@Tag("reservation")
 @StereoType(ENTITY)
-public @interface EntityRoom {
+public @interface EntityReservation {
 }
