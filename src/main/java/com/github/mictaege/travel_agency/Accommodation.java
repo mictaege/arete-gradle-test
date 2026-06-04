@@ -1,5 +1,6 @@
 package com.github.mictaege.travel_agency;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ public class Accommodation {
     private final Address address;
     private final List<Room> rooms;
     private final List<PaymentMethod> paymentMethods;
+    private final List<Complaint> complaints;
 
     public Accommodation(final String fullAddress,
                          final Room... rooms) {
@@ -18,6 +20,7 @@ public class Accommodation {
         this.address = new Address(fullAddress.replace(name, "").trim());
         this.rooms = List.of(rooms);
         this.paymentMethods = List.of(PREPAYMENT, PAYPAL, CREDITCARD);
+        this.complaints = new ArrayList<>();
     }
 
     public String getId() {
@@ -38,5 +41,13 @@ public class Accommodation {
 
     public List<PaymentMethod> getPaymentMethods() {
         return paymentMethods;
+    }
+
+    public void addComplaint(Complaint complaint) {
+        complaints.add(complaint);
+    }
+
+    public List<Complaint> getComplaints() {
+        return complaints;
     }
 }

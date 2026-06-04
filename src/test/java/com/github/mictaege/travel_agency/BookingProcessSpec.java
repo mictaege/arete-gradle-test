@@ -227,7 +227,7 @@ class BookingProcessSpec {
     }
 
     @Scenario
-    @Disabled("Not implemented yet")
+    @Disabled("Needs refinement")
     class BookingProcessInterrupted {
 
         @Given(seq = 1, step = 1)

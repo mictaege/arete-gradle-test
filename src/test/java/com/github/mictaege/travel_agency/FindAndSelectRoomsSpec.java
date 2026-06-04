@@ -402,7 +402,7 @@ class FindAndSelectRoomsSpec {
     @Feature(2)
     @Narrative(
             """
-            *Offers* for *Room* could could be sorted by criteria like
+            *Offers* for *Rooms* could be sorted by criteria like
             - *number of persons*
             - *popularity*
             - *best price*

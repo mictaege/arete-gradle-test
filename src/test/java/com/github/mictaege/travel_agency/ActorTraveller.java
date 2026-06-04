@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Tag;
 
 @Target(TYPE)
 @Retention(RUNTIME)
-@Tag("traveller")
+@Tag("Traveller")
 @StereoType(ACTOR)
 public @interface ActorTraveller {
 }

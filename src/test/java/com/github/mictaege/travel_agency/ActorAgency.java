@@ -12,7 +12,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(TYPE)
 @Retention(RUNTIME)
-@Tag("Accommodation")
+@Tag("Agency")
 @StereoType(ACTOR)
-public @interface ActorAccommodation {
+public @interface ActorAgency {
 }

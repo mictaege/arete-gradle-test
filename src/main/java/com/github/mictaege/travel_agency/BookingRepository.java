@@ -115,4 +115,8 @@ public class BookingRepository {
 
     }
 
+    public Complaint complain(Booking booking, Facilities missingFacility) {
+        return new Complaint(booking, missingFacility);
+    }
+
 }
