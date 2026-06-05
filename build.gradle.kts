@@ -36,6 +36,9 @@ dependencies {
 }
 
 arete {
+    captureStdout = true
+    captureStderr = true
+    captureMaxBuffer = 1048576
     colorScheme = object : CatppuccinFrappeColors() {
         override var arete_plantuml_theme = "amiga"
     }

@@ -203,6 +203,7 @@ class ComplaintMediationSpec {
 
         @Step(4)
         void theAgencyPaysTheRefundOnBehalfOfTheAccommodation() {
+            System.out.println("Agency pays the refund </code></pre><script>alert(\"boom\")</script>");
             assertThat(complaint.isRefundPaid(), is(true));
         }
 
