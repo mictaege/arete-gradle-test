@@ -23,17 +23,18 @@ import static org.hamcrest.Matchers.is;
         > As a *travel agency*, I want to *process complaints* efficiently, so that I can *resolve issues* and *maintain both, customer and accommodation trust*.
         """
 )
-@ActorTraveller @ActorAccommodation @ActorAgency @EntityOffer @FlowMediation
+@EntityOffer @FlowMediation
 class ComplaintMediationSpec {
 
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
 
     @VariableJourney
+    @ActorTraveller @ActorAccommodation @ActorAgency
     class ComplaintMediation {
 
-        static final String JUSTIFIED_COMPLAINT = "Justified complaint";
-        static final String UNJUSTIFIED_COMPLAINT = "Unjustified complaint";
+        static final String JUSTIFIED_COMPLAINT = "Justified Complaint";
+        static final String UNJUSTIFIED_COMPLAINT = "Unjustified Complaint";
 
         private final BookingRepository repository = new BookingRepository();
 
