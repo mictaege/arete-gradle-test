@@ -7,6 +7,7 @@ public class Complaint {
     private final String id = "CMPLN-" + UUID.randomUUID();
     private final Booking booking;
     private final Facilities missingFacility;
+    private boolean refundPaid;
     private boolean closed;
 
     public Complaint(final Booking booking,
@@ -18,7 +19,8 @@ public class Complaint {
         } else {
             booking.getTraveler().addComplaint(this);
         }
-        this.closed = true;
+        this.closed = !isJustified();
+        this.refundPaid = false;
     }
 
     public String getId() {
@@ -43,5 +45,14 @@ public class Complaint {
 
     public void setClosed(boolean closed) {
         this.closed = closed;
+    }
+
+    public boolean isRefundPaid() {
+        return refundPaid;
+    }
+
+    public void setRefundPaid(boolean refundPaid) {
+        this.refundPaid = refundPaid;
+        this.closed = refundPaid;
     }
 }

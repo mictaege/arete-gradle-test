@@ -13,6 +13,7 @@ public class Accommodation {
     private final List<Room> rooms;
     private final List<PaymentMethod> paymentMethods;
     private final List<Complaint> complaints;
+    private boolean reprimanded;
 
     public Accommodation(final String fullAddress,
                          final Room... rooms) {
@@ -49,5 +50,13 @@ public class Accommodation {
 
     public List<Complaint> getComplaints() {
         return complaints;
+    }
+
+    public void setReprimanded(boolean reprimanded) {
+        this.reprimanded = reprimanded;
+    }
+
+    public boolean isReprimanded() {
+        return reprimanded;
     }
 }

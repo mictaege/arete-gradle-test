@@ -30,6 +30,29 @@ class ComplaintMediationSpec {
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
 
     @VariableJourney
+    @Narrative(
+            value = "The agency mediates complaints between traveller and accommodation",
+            plantUml =
+                """
+                @startuml
+                start
+                :Accommodation offers Rooms;
+                :Traveller searches Rooms;
+                :Traveller books Room;
+                :Traveller arrives;
+                :Traveller complains;
+                :Agency proofs complaint;
+                if (Justified?) then (Yes)
+                    :Accommodation told to refund;
+                    :Accommodation pays refund;
+                else (No)
+                    :Traveller is told about rejection;
+                endif
+                :Complaint is closed;
+                stop
+                @enduml
+                """
+    )
     @ActorTraveller @ActorAccommodation @ActorAgency
     class ComplaintMediation {
 
@@ -105,9 +128,87 @@ class ComplaintMediationSpec {
             assertThat(traveler.getComplaints(), contains(complaint));
         }
 
-        @Step(6)
+        @Step(value = 6, variant = JUSTIFIED_COMPLAINT)
+        void theAccommodationIsPayingTheRefundToTheTraveller() {
+            complaint = repository.refund(complaint);
+            assertThat(complaint.isRefundPaid(), is(true));
+        }
+
+
+        @Step(7)
         void finallyTheCaseIsClosed() {
             assertThat(complaint.isClosed(), is(true));
+        }
+
+    }
+
+    @Journey
+    @ActorTraveller @ActorAccommodation @ActorAgency
+    class RefundNotPaid {
+
+        static final String JUSTIFIED_COMPLAINT = "Justified Complaint";
+        static final String UNJUSTIFIED_COMPLAINT = "Unjustified Complaint";
+
+        private final BookingRepository repository = new BookingRepository();
+
+        private Traveler traveler;
+        private Accommodation accommodation;
+        private Booking booking;
+        private Complaint complaint;
+
+        @BeforeAll
+        void context() {
+            traveler = new Traveler(
+                    "Max",
+                    "Mustermann",
+                    "max-mustermann@gnogle.com",
+                    new Address(
+                            """
+                                Hauptstrasse 8"
+                                76131 Karlsruhe
+                                DE
+                                """
+                    )
+            );
+            final var room = new Room(2, KING, HAIRDRYER, BALCONY, SLIPPERS);
+            accommodation = new Accommodation(
+                    """
+                    Hotel Krone
+                    Schlossallee 123
+                    80539 Munich
+                    DE
+                    """,
+                    room
+            );
+            repository.register(accommodation);
+            final var offer = new Offer(accommodation, room, LocalDate.of(2026, 6, 5), LocalDate.of(2026, 6, 7));
+            booking = new Booking(traveler, offer);
+            complaint = new Complaint(booking, HAIRDRYER);
+        }
+
+        @Step(1)
+        void anAccommodationIsToldToPayARefund() {
+            assertThat(complaint.isJustified(), is(true));
+        }
+
+        @Step(2)
+        void afterEnoughTimeTheTravelerHasNotReceivedAnyRefund() {
+            assertThat(complaint.isRefundPaid(), is(false));
+        }
+
+        @Step(3)
+        void theTravelerComplainsAboutTheLackOfARefund() {
+            repository.requestMitigation(complaint);
+        }
+
+        @Step(4)
+        void theAgencyPaysTheRefundOnBehalfOfTheAccommodation() {
+            assertThat(complaint.isRefundPaid(), is(true));
+        }
+
+        @Step(5)
+        void theAgencyReprimandsTheAccommodation() {
+            assertThat(accommodation.isReprimanded(), is(true));
         }
 
     }
