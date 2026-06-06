@@ -13,10 +13,6 @@ public class Booking {
     private LocalDate end;
     private BookingState state;
 
-    public String getId() {
-        return id;
-    }
-
     public Booking(final Traveler traveler,
                    final Offer offer) {
         this.traveler = traveler;
@@ -25,6 +21,10 @@ public class Booking {
         this.start = offer.getStart();
         this.end = offer.getEnd();
         this.state = BookingState.OFFERED;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public Traveler getTraveler() {

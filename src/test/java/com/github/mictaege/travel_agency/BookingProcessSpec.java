@@ -81,13 +81,15 @@ import static org.hamcrest.Matchers.*;
         }
 
 )
-@ActorTraveller @ActorAccommodation @ActorPaymentService @EntityRoom @FlowBooking
+@ActorTraveller @ActorAccommodation @ExternalPaymentService
+@EntityRoom @FlowBooking
 class BookingProcessSpec {
 
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
 
     @Scenario
+    @ActorTraveller
     class SuccessfulBooking {
 
         private final BookingRepository repository = new BookingRepository();
@@ -157,6 +159,8 @@ class BookingProcessSpec {
     }
 
     @Scenario
+    @ActorTraveller
+    @ActorAccommodation
     class UnsecurePaymentMethod {
 
         private final BookingRepository repository = new BookingRepository();
@@ -223,7 +227,7 @@ class BookingProcessSpec {
     }
 
     @Scenario
-    @Disabled("Not implemented yet")
+    @Disabled("Needs refinement")
     class BookingProcessInterrupted {
 
         @Given(seq = 1, step = 1)

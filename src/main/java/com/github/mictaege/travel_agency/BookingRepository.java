@@ -115,4 +115,19 @@ public class BookingRepository {
 
     }
 
+    public Complaint complain(Booking booking, Facilities missingFacility) {
+        return new Complaint(booking, missingFacility);
+    }
+
+    public Complaint refund(Complaint complaint) {
+        complaint.setRefundPaid(true);
+        return complaint;
+    }
+
+    public void requestMitigation(Complaint complaint) {
+        if (complaint.isJustified() && !complaint.isRefundPaid()) {
+            //complaint.setRefundPaid(true);
+            complaint.getBooking().getAccommodation().setReprimanded(true);
+        }
+    }
 }
