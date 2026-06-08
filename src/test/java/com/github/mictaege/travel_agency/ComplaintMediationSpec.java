@@ -146,9 +146,6 @@ class ComplaintMediationSpec {
     @ActorTraveller @ActorAccommodation @ActorAgency
     class RefundNotPaid {
 
-        static final String JUSTIFIED_COMPLAINT = "Justified Complaint";
-        static final String UNJUSTIFIED_COMPLAINT = "Unjustified Complaint";
-
         private final BookingRepository repository = new BookingRepository();
 
         private Traveler traveler;
@@ -203,7 +200,7 @@ class ComplaintMediationSpec {
 
         @Step(4)
         void theAgencyPaysTheRefundOnBehalfOfTheAccommodation() {
-            System.out.println("Agency pays the refund </code></pre><script>alert(\"boom\")</script>");
+            System.out.println("Agency </code></pre><script>pays the refund</script>");
             assertThat(complaint.isRefundPaid(), is(true));
         }
 
