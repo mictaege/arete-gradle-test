@@ -66,7 +66,7 @@ class ComplaintMediationSpec {
         private Booking booking;
         private Complaint complaint;
 
-        @BeforeAll
+        @BeforeVariant
         void context() {
             traveler = new Traveler(
                     "Max",
