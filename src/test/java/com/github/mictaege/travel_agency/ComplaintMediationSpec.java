@@ -56,9 +56,10 @@ class ComplaintMediationSpec {
     @ActorTraveller @ActorAccommodation @ActorAgency
     class ComplaintMediation {
 
-        static final String JUSTIFIED_COMPLAINT = "Justified Complaint";
-        static final String UNJUSTIFIED_COMPLAINT = "Unjustified Complaint";
-
+        class Variants {
+            static final String JUSTIFIED_COMPLAINT = "Justified Complaint";
+            static final String UNJUSTIFIED_COMPLAINT = "Unjustified Complaint";
+        }
         private final BookingRepository repository = new BookingRepository();
 
         private Traveler traveler;
@@ -108,34 +109,33 @@ class ComplaintMediationSpec {
             repository.initPayment(traveler, booking, PaymentMethod.PAYPAL);
         }
 
-        @Step(value = 4, variant = JUSTIFIED_COMPLAINT)
+        @Step(value = 4, variant = Variants.JUSTIFIED_COMPLAINT)
         void afterArrivalTheTravellerComplainsAboutAMissingFacilityThatHasBeenOffered() {
             complaint = repository.complain(booking, HAIRDRYER);
         }
 
-        @Step(value = 4, variant = UNJUSTIFIED_COMPLAINT)
+        @Step(value = 4, variant = Variants.UNJUSTIFIED_COMPLAINT)
         void afterArrivalTheTravellerComplainsAboutAMissingFacilityThatHasNotBeenOffered() {
             complaint = repository.complain(booking, COFFEE_MAKER);
         }
 
-        @Step(value = 5, variant = JUSTIFIED_COMPLAINT)
+        @Step(value = 5, variant = Variants.JUSTIFIED_COMPLAINT)
         void thenTheAccommodationIsToldToRefundTheTraveller() {
             assertThat(accommodation.getComplaints(), contains(complaint));
         }
 
-        @Step(value = 5, variant = UNJUSTIFIED_COMPLAINT)
+        @Step(value = 5, variant = Variants.UNJUSTIFIED_COMPLAINT)
         void thenTheTravellerIsToldThatHisComplaintHasBeenRejected() {
             assertThat(traveler.getComplaints(), contains(complaint));
         }
 
-        @Step(value = 6, variant = JUSTIFIED_COMPLAINT)
+        @Step(value = 6, variant = Variants.JUSTIFIED_COMPLAINT)
         void theAccommodationIsPayingTheRefundToTheTraveller() {
             complaint = repository.refund(complaint);
             assertThat(complaint.isRefundPaid(), is(true));
         }
 
-
-        @Step(7)
+        @Step(value = 7, variant = {Variants.JUSTIFIED_COMPLAINT, Variants.UNJUSTIFIED_COMPLAINT})
         void finallyTheCaseIsClosed() {
             assertThat(complaint.isClosed(), is(true));
         }
