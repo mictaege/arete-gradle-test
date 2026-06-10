@@ -336,77 +336,72 @@ class ManageShoppingCartSpec {
         @Scenario
         class ChangeTimeOfStayNotPossibleIfRoomNotAvailable {
 
-            @Scenario
-            class ChangeOfferInShoppingCartSuccessfully {
+            private final BookingRepository repository = new BookingRepository();
 
-                private final BookingRepository repository = new BookingRepository();
+            private Traveler traveler;
+            private Booking offer;
+            private Exception exc;
 
-                private Traveler traveler;
-                private Booking offer;
-                private Exception exc;
+            @Given(1)
+            void aRegisteredTraveler() {
+                traveler = new Traveler(
+                        "Max",
+                        "Mustermann",
+                        "max-mustermann@gnogle.com",
+                        new Address(
+                                """
+                                       Hauptstrasse 8"
+                                       76131 Karlsruhe
+                                       DE
+                                       """
+                        )
+                );
+            }
 
-                @Given(1)
-                void aRegisteredTraveler() {
-                    traveler = new Traveler(
-                            "Max",
-                            "Mustermann",
-                            "max-mustermann@gnogle.com",
-                            new Address(
-                                    """
-                                        Hauptstrasse 8"
-                                        76131 Karlsruhe
-                                        DE
-                                        """
-                            )
-                    );
+            @Given(2)
+            void someOffersInTheShoppingCart() {
+                repository.register(new Accommodation(
+                        """
+                           Hotel Krone
+                           Schlossallee 123
+                           80539 Munich
+                           DE
+                           """,
+                        new Room(2, KING, HAIRDRYER, BALCONY)
+                ));
+                final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
+                offers.forEach(o -> repository.addToShoppingCart(traveler, o));
+            }
+
+            @Given(3)
+            void theRoomIsBookedAtOtherTimes() {
+                final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 8), LocalDate.of(2026, 1, 9));
+                offers.forEach(o -> repository.addToShoppingCart(traveler, o));
+            }
+
+            @When(1)
+            void selectingAnOffer() {
+                offer = repository.getOffersFromShoppingCart(traveler).get(0);
+            }
+
+            @When(2)
+            void theTimeOfStayIsChangedToATimeWhenTheRoomIsAlreadyBooked() {
+                try {
+                    repository.changeTimeOfStay(traveler, offer, LocalDate.of(2026, 1, 8), LocalDate.of(2026, 1, 9));
+                } catch (final Exception e) {
+                    exc = e;
                 }
+            }
 
-                @Given(2)
-                void someOffersInTheShoppingCart() {
-                    repository.register(new Accommodation(
-                            """
-                            Hotel Krone
-                            Schlossallee 123
-                            80539 Munich
-                            DE
-                            """,
-                            new Room(2, KING, HAIRDRYER, BALCONY)
-                    ));
-                    final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 6), LocalDate.of(2026, 1, 7));
-                    offers.forEach(o -> repository.addToShoppingCart(traveler, o));
-                }
+            @Then(1)
+            void theChangeIsRejected() {
+                assertThat(exc.getMessage(), is("Cannot change time of stay"));
+            }
 
-                @Given(3)
-                void theRoomIsBookedAtOtherTimes() {
-                    final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 1, 8), LocalDate.of(2026, 1, 9));
-                    offers.forEach(o -> repository.addToShoppingCart(traveler, o));
-                }
-
-                @When(1)
-                void selectingAnOffer() {
-                    offer = repository.getOffersFromShoppingCart(traveler).get(0);
-                }
-
-                @When(2)
-                void theTimeOfStayIsChangedToATimeWhenTheRoomIsAlreadyBooked() {
-                    try {
-                        repository.changeTimeOfStay(traveler, offer, LocalDate.of(2026, 1, 8), LocalDate.of(2026, 1, 9));
-                    } catch (final Exception e) {
-                        exc = e;
-                    }
-                }
-
-                @Then(1)
-                void theChangeIsRejected() {
-                    assertThat(exc.getMessage(), is("Cannot change time of stay"));
-                }
-
-                @Then(2)
-                void theOfferRemainsUnchanged() {
-                    assertThat(offer.getStart(), is(LocalDate.of(2026, 1, 6)));
-                    assertThat(offer.getEnd(), is(LocalDate.of(2026, 1, 7)));
-                }
-
+            @Then(2)
+            void theOfferRemainsUnchanged() {
+                assertThat(offer.getStart(), is(LocalDate.of(2026, 1, 6)));
+                assertThat(offer.getEnd(), is(LocalDate.of(2026, 1, 7)));
             }
 
         }
@@ -474,7 +469,6 @@ class ManageShoppingCartSpec {
             var cart = repository.getOffersFromShoppingCart(traveler);
             assertThat(cart.contains(offer), is(false));
         }
-
 
     }
 

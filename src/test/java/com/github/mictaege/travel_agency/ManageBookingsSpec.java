@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import com.github.mictaege.arete.ExampleCsv;
@@ -45,7 +46,8 @@ import com.github.mictaege.arete.When;
                 @enduml
                 """
 )
-@ActorTraveller @ActorAccommodation @EntityBooking
+@ActorTraveller @ActorAccommodation @EntityReservation
+@Tag("Milestone-1")
 class ManageBookingsSpec {
 
     @RegisterExtension

@@ -10,8 +10,9 @@ public class Traveler {
     private String lastName;
     private String eMail;
     private Address address;
-    private List<Booking> confirmedBookings;
-    private List<Booking> invoicedBookings;
+    private final List<Booking> confirmedBookings;
+    private final List<Booking> invoicedBookings;
+    private final List<Complaint> complaints;
 
     public Traveler(final String firstName,
                     final String lastName,
@@ -21,8 +22,9 @@ public class Traveler {
         this.lastName = lastName;
         this.eMail = eMail;
         this.address = address;
-        this.confirmedBookings = new ArrayList<Booking>();
-        this.invoicedBookings = new ArrayList<Booking>();
+        this.confirmedBookings = new ArrayList<>();
+        this.invoicedBookings = new ArrayList<>();
+        this.complaints = new ArrayList<>();
     }
 
     public String getId() {
@@ -75,5 +77,13 @@ public class Traveler {
 
     public List<Booking> getInvoicedBookings() {
         return invoicedBookings;
+    }
+
+    public void addComplaint(Complaint complaint) {
+        complaints.add(complaint);
+    }
+
+    public List<Complaint> getComplaints() {
+        return complaints;
     }
 }
