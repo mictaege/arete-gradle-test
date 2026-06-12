@@ -11,16 +11,9 @@ import static org.hamcrest.Matchers.is;
 
 import java.time.LocalDate;
 
+import com.github.mictaege.arete.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.RegisterExtension;
-
-import com.github.mictaege.arete.BeforeVariant;
-import com.github.mictaege.arete.Journey;
-import com.github.mictaege.arete.Narrative;
-import com.github.mictaege.arete.ScreenshotExtension;
-import com.github.mictaege.arete.Spec;
-import com.github.mictaege.arete.Step;
-import com.github.mictaege.arete.VariableJourney;
 
 @Spec
 @Narrative(
@@ -98,6 +91,11 @@ class ComplaintMediationSpec {
                                 """
                     )
             );
+        }
+
+        @AfterVariant
+        void tearDown() {
+            traveler = null;
         }
 
         @Step(value = 1, phase = Phase.BOOKING)
