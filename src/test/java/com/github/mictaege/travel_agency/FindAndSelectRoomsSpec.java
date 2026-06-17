@@ -93,7 +93,7 @@ class FindAndSelectRoomsSpec {
     )
     class FindAvailableRooms {
 
-        @Scenario
+        @Scenario(1)
         class FindAvailableRoomsByCity {
 
             private final BookingRepository repository = new BookingRepository();
@@ -128,7 +128,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(2)
         class DoNotListRoomsInOtherCities {
 
             private final BookingRepository repository = new BookingRepository();
@@ -161,7 +161,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(3)
         class DoNotListRoomsThatAreToSmall {
 
             private final BookingRepository repository = new BookingRepository();
@@ -194,7 +194,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(4)
         class DoNotListRoomsWithMissingFacilities {
 
             private final BookingRepository repository = new BookingRepository();
@@ -227,7 +227,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(5)
         class DoNotListRoomsThatAreAlreadyBooked {
 
             private final BookingRepository repository = new BookingRepository();
@@ -360,7 +360,7 @@ class FindAndSelectRoomsSpec {
             }
         }
 
-        @Scenario
+        @Scenario(6)
         @EnabledIf(com.github.mictaege.travel_agency.Feature.MONITARIZATION)
         @HiddenIfDisabled
         class ShowAdvertisement {
@@ -412,7 +412,7 @@ class FindAndSelectRoomsSpec {
     )
     class SelectBestOfferFromList {
 
-        @Scenario
+        @Scenario(1)
         class SortOffersByNumberOfPersons {
 
             private final BookingRepository repository = new BookingRepository();
@@ -450,7 +450,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(2)
         class SortOffersByPopularity {
 
             private final BookingRepository repository = new BookingRepository();
@@ -489,7 +489,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(3)
         class SortOffersByBestPrice {
 
             private final BookingRepository repository = new BookingRepository();
@@ -528,7 +528,7 @@ class FindAndSelectRoomsSpec {
 
         }
 
-        @Scenario
+        @Scenario(4)
         @SeeAlso(DisplayRoomDetailsSpec.class)
         class ShowRoomDetails {
 

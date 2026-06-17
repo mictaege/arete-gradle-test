@@ -11,16 +11,9 @@ import static org.hamcrest.Matchers.is;
 
 import java.time.LocalDate;
 
+import com.github.mictaege.arete.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.extension.RegisterExtension;
-
-import com.github.mictaege.arete.BeforeVariant;
-import com.github.mictaege.arete.Journey;
-import com.github.mictaege.arete.Narrative;
-import com.github.mictaege.arete.ScreenshotExtension;
-import com.github.mictaege.arete.Spec;
-import com.github.mictaege.arete.Step;
-import com.github.mictaege.arete.VariableJourney;
 
 @Spec
 @Narrative(
@@ -100,7 +93,12 @@ class ComplaintMediationSpec {
             );
         }
 
-        @Step(value = 1, phase = Phase.BOOKING)
+        @AfterVariant
+        void tearDown() {
+            traveler = null;
+        }
+
+        @Step(order = 1, phase = Phase.BOOKING)
         void anAccommodationOffersSomeRooms() {
             accommodation = new Accommodation(
                     """
@@ -114,45 +112,45 @@ class ComplaintMediationSpec {
             repository.register(accommodation);
         }
 
-        @Step(value = 2, phase = Phase.BOOKING, desc = "A traveller searches for a room for 2 people in Munich")
+        @Step(order = 2, phase = Phase.BOOKING, desc = "A traveller searches for a room for 2 people in Munich")
         void aTravellerSearchesForARoom() {
             final var offers = repository.findRooms(2, "Munich", LocalDate.of(2026, 6, 5), LocalDate.of(2026, 6, 7));
             offers.forEach(o -> repository.addToShoppingCart(traveler, o));
             booking = repository.getOffersFromShoppingCart(traveler).get(0);
         }
 
-        @Step(value = 3, phase = Phase.BOOKING)
+        @Step(order = 3, phase = Phase.BOOKING)
         void theTravellerBooksAnOfferedRoom() {
             repository.initPayment(traveler, booking, PaymentMethod.PAYPAL);
         }
 
-        @Step(value = 4, phase = Phase.COMPLAINING, variant = Variant.JUSTIFIED)
+        @Step(order = 4, phase = Phase.COMPLAINING, variant = Variant.JUSTIFIED)
         void afterArrivalTheTravellerComplainsAboutAMissingFacilityThatHasBeenOffered() {
             complaint = repository.complain(booking, HAIRDRYER);
         }
 
-        @Step(value = 4, phase = Phase.COMPLAINING, variant = Variant.UNJUSTIFIED)
+        @Step(order = 4, phase = Phase.COMPLAINING, variant = Variant.UNJUSTIFIED)
         void afterArrivalTheTravellerComplainsAboutAMissingFacilityThatHasNotBeenOffered() {
             complaint = repository.complain(booking, COFFEE_MAKER);
         }
 
-        @Step(value = 5, phase = Phase.MEDIATION, variant = Variant.JUSTIFIED)
+        @Step(order = 5, phase = Phase.MEDIATION, variant = Variant.JUSTIFIED)
         void thenTheAccommodationIsToldToRefundTheTraveller() {
             assertThat(accommodation.getComplaints(), contains(complaint));
         }
 
-        @Step(value = 5, phase = Phase.MEDIATION, variant = Variant.UNJUSTIFIED)
+        @Step(order = 5, phase = Phase.MEDIATION, variant = Variant.UNJUSTIFIED)
         void thenTheTravellerIsToldThatHisComplaintHasBeenRejected() {
             assertThat(traveler.getComplaints(), contains(complaint));
         }
 
-        @Step(value = 6, phase = Phase.MEDIATION, variant = Variant.JUSTIFIED)
+        @Step(order = 6, phase = Phase.MEDIATION, variant = Variant.JUSTIFIED)
         void theAccommodationIsPayingTheRefundToTheTraveller() {
             complaint = repository.refund(complaint);
             assertThat(complaint.isRefundPaid(), is(true));
         }
 
-        @Step(value = 7, phase = Phase.MEDIATION, variant = {Variant.JUSTIFIED, Variant.UNJUSTIFIED})
+        @Step(order = 7, phase = Phase.MEDIATION, variant = {Variant.JUSTIFIED, Variant.UNJUSTIFIED})
         void finallyTheCaseIsClosed() {
             assertThat(complaint.isClosed(), is(true));
         }
@@ -205,7 +203,7 @@ class ComplaintMediationSpec {
             assertThat(complaint.isJustified(), is(true));
         }
 
-        @Step(value = 2, desc = "The traveler has not received a refund after waiting for 2 weeks")
+        @Step(order = 2, desc = "The traveler has not received a refund after waiting for 2 weeks")
         void afterEnoughTimeTheTravelerHasNotReceivedAnyRefund() {
             assertThat(complaint.isRefundPaid(), is(false));
         }

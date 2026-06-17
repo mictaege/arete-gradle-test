@@ -50,7 +50,7 @@ class DisplayRoomDetailsSpec {
         room.setImages(List.of(new RoomImage("room1.png", "Bathroom"), new RoomImage("image2.png", "Living room")));
     }
 
-    @Describe
+    @Describe(1)
     class HowRoomDetailsAndFacilitiesAreDisplayed {
 
         @ItShould(1)
@@ -73,15 +73,14 @@ class DisplayRoomDetailsSpec {
             assertThat(room.getFacilities(), is(List.of(SHOWER, BATHROBE, HAIRDRYER, TELEVISION, WIFI)));
         }
 
-        @ItShould(4)
+        @ItShould(5)
         void displayTheRoomsPricePerNight() {
             assertThat(room.getPricePerNight(), is(123.45));
         }
 
-
     }
 
-    @Describe
+    @Describe(2)
     @Narrative(
             value = """
             The images of a room should give the *traveller* a good impression of the room and therefore be of good quality.
