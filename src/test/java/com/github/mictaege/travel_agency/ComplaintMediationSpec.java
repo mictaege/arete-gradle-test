@@ -39,7 +39,7 @@ class ComplaintMediationSpec {
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
 
-    @VariableJourney
+    @VariableJourney(1)
     @Narrative(
             value = "The agency mediates complaints between traveller and accommodation",
             plantUml =
@@ -159,7 +159,7 @@ class ComplaintMediationSpec {
 
     }
 
-    @Journey
+    @Journey(2)
     @ActorTraveller @ActorAccommodation @ActorAgency
     class RefundNotPaid {
 
