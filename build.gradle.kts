@@ -2,7 +2,7 @@ import com.github.mictaege.arete_gradle.CatppuccinFrappeColors
 
 plugins {
     java
-    id("org.jetbrains.kotlin.jvm") version "2.3.0"
+    id("org.jetbrains.kotlin.jvm") version "2.4.21"
     id("io.github.mictaege.arete") version "2026.7"
     `maven-publish`
     signing
@@ -12,7 +12,7 @@ group = "io.github.mictaege"
 version = "2026.7"
 
 tasks.wrapper {
-    gradleVersion = "8.7"
+    gradleVersion = "9.8.2"
     distributionType = Wrapper.DistributionType.ALL
 }
 
@@ -29,10 +29,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     testImplementation("io.github.mictaege:arete:2026.7")
     testImplementation("org.hamcrest:hamcrest:3.0")
-    testImplementation("com.google.guava:guava:33.5.0-jre")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:6.0.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.0.2")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
+    testImplementation("com.google.guava:guava:33.7.2-jre")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:6.1.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:6.1.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.3")
 }
 
 arete {
