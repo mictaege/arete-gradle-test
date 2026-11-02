@@ -18,10 +18,10 @@ import com.github.mictaege.arete.Refs;
 @Target(TYPE)
 @Retention(RUNTIME)
 @Repeatable(GithubRefs.class)
-@Ref(url = "https://github.com/mictaege/arete-gradle/issues/")
+@Ref(url = "https://github.com/mictaege/arete-gradle/issues/{0}")
 public @interface GithubRef {
 
-    /** The issue number, appended to the issue tracker URL of the meta {@link Ref}. */
+    /** The issue number, substituted into the {@code {0}} placeholder of the url pattern of the meta {@link Ref}. */
     String value();
 
 }
