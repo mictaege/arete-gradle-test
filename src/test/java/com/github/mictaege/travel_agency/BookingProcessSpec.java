@@ -83,6 +83,7 @@ import static org.hamcrest.Matchers.*;
 )
 @ActorTraveller @ActorAccommodation @ExternalPaymentService
 @EntityRoom @FlowBooking
+@GithubRef("14") @Ref(url = "https://github.com/mictaege/arete-gradle/issues/", value = "16")
 class BookingProcessSpec {
 
     @RegisterExtension
