@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  arete-gradle-test is a small sample/integration-test project that applies the arete-gradle
+  plugin (io.github.mictaege.arete) to exercise and validate the plugin's reporting end-to-end.
+  It is NOT published; its value is as a living, buildable consumer/example (travel_agency demo
+  specs), not as documentation.
+
+  Family: part of the arete family, registered in the family store `arete`
+  (~/openspec/arete, use `openspec ... --store arete` for family-wide planning).
+  `settings.gradle.kts` includes ../arete and ../arete-gradle via includeBuild, so local changes
+  in the core library and the plugin are exercised here without publishing; the applied plugin
+  version in build.gradle.kts is pinned to the released version.
+
+  Stack: Java (src/main/java, src/test/java) plus Kotlin plugin support; Gradle Kotlin DSL; build
+  and test only via ./gradlew; tests are JUnit Jupiter with the arete extension applied.
+
+  Conventions for changes:
+  - Run ./gradlew build (runs tests + the arete report) after changing anything in arete or
+    arete-gradle to confirm the whole pipeline still works.
+  - Keep this a throwaway/example project: prefer minimal, illustrative specs over complex
+    production-like code.
+  - Demo specs here (e.g. BookingProcessSpec with @GithubRef/@Ref) double as report examples for
+    features specced in the sibling repos (see their openspec/specs/).
+
+  There are intentionally no capability specs here; behavior specs live in arete
+  (openspec/specs/) and arete-gradle (openspec/specs/), family-level planning in store `arete`.
