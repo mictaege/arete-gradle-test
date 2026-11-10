@@ -155,6 +155,11 @@ class BookingProcessSpec {
         @Then(seq = 3, step = 3)
         void theTravelerReceivesAnInvoice() {
             assertThat(traveler.getInvoicedBookings(), contains(offer));
+            StepContext.current().attach(
+                    "invoice.txt",
+                    org.junit.jupiter.api.MediaType.TEXT_PLAIN,
+                    ("Invoice for booking " + offer.getId()).getBytes(java.nio.charset.StandardCharsets.UTF_8)
+            );
         }
 
     }
