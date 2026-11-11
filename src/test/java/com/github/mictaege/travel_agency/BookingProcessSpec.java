@@ -2,7 +2,9 @@ package com.github.mictaege.travel_agency;
 
 import com.github.mictaege.arete.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.MediaType;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import java.time.LocalDate;
@@ -88,6 +90,12 @@ class BookingProcessSpec {
 
     @RegisterExtension
     public ScreenshotExtension screenshots = new ScreenshotExtension(new UiDummyScreenshotTaker());
+
+    @AfterAll
+    static void attachBookingSummaryToNarrative() {
+        final byte[] summary = "{\"bookingProcess\":\"demo narrative attachment\"}".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+        NarrativeContext.current().attach("booking-summary.json", MediaType.APPLICATION_JSON, summary);
+    }
 
     @Scenario
     @ActorTraveller
