@@ -3,6 +3,7 @@ package com.github.mictaege.travel_agency;
 import com.github.mictaege.arete.*;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MediaType;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -98,6 +99,7 @@ class BookingProcessSpec {
     }
 
     @Scenario
+    @Narrative("Successful booking produces confirmation and invoice")
     @ActorTraveller
     class SuccessfulBooking {
 
@@ -106,6 +108,12 @@ class BookingProcessSpec {
         private Traveler traveler;
         private Booking offer;
         private List<PaymentMethod> paymentMethods;
+
+        @BeforeAll
+        static void attachBookingSummaryToNarrative() {
+            final byte[] summary = "{\"bookingConfirmation\":\"demo narrative attachment\"}".getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            NarrativeContext.current().attach("booking-confirmation.json", MediaType.APPLICATION_JSON, summary);
+        }
 
         @Given(seq = 1, step = 1)
         void aRegisteredTraveler() {

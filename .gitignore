@@ -1,6 +1,9 @@
 /.idea
 /.gradle
 /build
+/app/build/
+/java-specs/build/
+/kotlin-specs/build/
 # Compiled class file
 *.class
 
