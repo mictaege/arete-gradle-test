@@ -1,11 +1,15 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.*
 import com.github.mictaege.travel_agency.Facilities.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
+import org.junit.jupiter.api.extension.AfterAllCallback
+import org.junit.jupiter.api.extension.BeforeAllCallback
+import org.junit.jupiter.api.extension.ExtensionContext
 import java.time.LocalDate
 
 class FindAndSelectRoomsSpec : Spec({
@@ -59,7 +63,8 @@ class FindAndSelectRoomsSpec : Spec({
             ),
             tags = listOf(ActorTraveller::class, EntityOffer::class, EntityRoom::class)
         )
-        screenshots(UiDummyScreenshotTaker())
+        extendWith(LoggingExtension::class)
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         feature("Find Available Rooms") {
             doc(
                 narrative = """
@@ -362,3 +367,8 @@ class FindAndSelectRoomsSpec : Spec({
         }
     }
 })
+
+class LoggingExtension : BeforeAllCallback, AfterAllCallback {
+    override fun beforeAll(context: ExtensionContext) { println("Container started: ${context.displayName}") }
+    override fun afterAll(context: ExtensionContext) { println("Container finished: ${context.displayName}") }
+}

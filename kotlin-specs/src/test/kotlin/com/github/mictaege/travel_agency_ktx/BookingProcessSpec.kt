@@ -1,15 +1,15 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.arete_ktx.ref
-import org.junit.jupiter.api.MediaType
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
 import com.github.mictaege.travel_agency.Facilities.BALCONY
 import com.github.mictaege.travel_agency.Facilities.HAIRDRYER
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.MediaType
 import java.time.LocalDate
 
 class BookingProcessSpec : Spec({
@@ -79,7 +79,7 @@ class BookingProcessSpec : Spec({
             MediaType.APPLICATION_JSON,
             "{\"bookingProcess\":\"demo narrative attachment\"}".toByteArray(Charsets.UTF_8)
         )
-        screenshots(UiDummyScreenshotTaker())
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         scenario("Successful Booking") {
             doc(
                 narrative = "Successful booking produces confirmation and invoice",

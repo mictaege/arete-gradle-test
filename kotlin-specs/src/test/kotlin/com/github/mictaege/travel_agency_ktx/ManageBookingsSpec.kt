@@ -1,5 +1,6 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
@@ -30,7 +31,7 @@ class ManageBookingsSpec : Spec({
             ),
             tags = listOf(ActorTraveller::class, ActorAccommodation::class, EntityReservation::class, Milestone1::class)
         )
-        screenshots(UiDummyScreenshotTaker())
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
 
         val repository = BookingRepository()
         val traveler = newTraveler()

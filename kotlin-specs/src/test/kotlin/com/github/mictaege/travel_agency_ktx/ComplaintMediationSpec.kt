@@ -1,5 +1,6 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
@@ -32,7 +33,7 @@ class ComplaintMediationSpec : Spec({
             """.trimIndent(),
             tags = listOf(EntityOffer::class, FlowMediation::class)
         )
-        screenshots(UiDummyScreenshotTaker())
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         variableJourney("Complaint Mediation") {
             doc(
                 narrative = "The agency mediates complaints between traveller and accommodation",

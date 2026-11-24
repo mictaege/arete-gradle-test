@@ -1,5 +1,6 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
@@ -28,7 +29,7 @@ class ManageShoppingCartSpec : Spec({
             ),
             tags = listOf(ActorTraveller::class, EntityOffer::class, EntityRoom::class)
         )
-        screenshots(UiDummyScreenshotTaker())
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         feature("Check Offers In Shopping Cart") {
             scenario("Show Room Details") {
                 doc(seeAlso = listOf(DisplayRoomDetailsSpec::class))

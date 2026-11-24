@@ -1,5 +1,6 @@
 package com.github.mictaege.travel_agency_ktx
 
+import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.QUEEN
@@ -23,7 +24,7 @@ class DisplayRoomDetailsSpec : Spec({
             """.trimIndent(),
             tags = listOf(ActorTraveller::class, EntityRoom::class)
         )
-        screenshots(UiDummyScreenshotTaker())
+        registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         describe("How Room Details And Facilities Are Displayed") {
             val room = Room(4, QUEEN, SHOWER, BATHROBE, HAIRDRYER, TELEVISION, WIFI).apply {
                 popularity = 9
