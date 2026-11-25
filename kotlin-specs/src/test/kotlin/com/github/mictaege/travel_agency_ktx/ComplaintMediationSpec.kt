@@ -6,6 +6,7 @@ import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
 import com.github.mictaege.travel_agency.Facilities.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.MediaType
 import org.hamcrest.Matchers.contains
 import org.hamcrest.Matchers.`is`
 import java.time.LocalDate
@@ -34,6 +35,12 @@ class ComplaintMediationSpec : Spec({
             tags = listOf(EntityOffer::class, FlowMediation::class)
         )
         registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
+        beforeAll {
+            attachToNarrative("spec-setup.txt", MediaType.TEXT_PLAIN, "spec setup".toByteArray())
+        }
+        afterAll {
+            attachToNarrative("spec-teardown.txt", MediaType.TEXT_PLAIN, "spec teardown".toByteArray())
+        }
         variableJourney("Complaint Mediation") {
             doc(
                 narrative = "The agency mediates complaints between traveller and accommodation",
@@ -76,6 +83,9 @@ class ComplaintMediationSpec : Spec({
                     Room(2, KING, HAIRDRYER, BALCONY, SLIPPERS)
                 )
             }
+            afterVariant {
+                attachToNarrative("variant-done.txt", MediaType.TEXT_PLAIN, "variant teardown".toByteArray())
+            }
             step("an accommodation offers some rooms", phase = Phase.BOOKING) {
                 repository.register(accommodation)
             }
@@ -108,7 +118,16 @@ class ComplaintMediationSpec : Spec({
             }
         }
         journey("Refund Not Paid") {
-            doc(tags = listOf(ActorTraveller::class, ActorAccommodation::class, ActorAgency::class))
+            doc(
+                narrative = "How to resolve a refund not paid complaint",
+                tags = listOf(ActorTraveller::class, ActorAccommodation::class, ActorAgency::class)
+            )
+            beforeEach {
+                attachToStep("before-step.txt", MediaType.TEXT_PLAIN, "before".toByteArray())
+            }
+            afterEach {
+                attachToStep("after-step.txt", MediaType.TEXT_PLAIN, "after".toByteArray())
+            }
             val repository: BookingRepository = BookingRepository()
             val traveler = newTraveler()
             val accommodation= Accommodation(
