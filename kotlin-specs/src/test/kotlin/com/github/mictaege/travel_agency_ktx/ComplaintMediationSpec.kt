@@ -122,11 +122,11 @@ class ComplaintMediationSpec : Spec({
                 narrative = "How to resolve a refund not paid complaint",
                 tags = listOf(ActorTraveller::class, ActorAccommodation::class, ActorAgency::class)
             )
-            beforeEach {
-                attachToStep("before-step.txt", MediaType.TEXT_PLAIN, "before".toByteArray())
+            beforeAll {
+                attachToNarrative("before-journey.txt", MediaType.TEXT_PLAIN, "before".toByteArray())
             }
-            afterEach {
-                attachToStep("after-step.txt", MediaType.TEXT_PLAIN, "after".toByteArray())
+            afterAll {
+                attachToNarrative("after-journey.txt", MediaType.TEXT_PLAIN, "after".toByteArray())
             }
             val repository: BookingRepository = BookingRepository()
             val traveler = newTraveler()
