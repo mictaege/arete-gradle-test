@@ -65,7 +65,7 @@ annotation class FlowMediation
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 @Repeatable
-@Ref(url = "https://github.com/mictaege/arete-gradle/issues/{0}")
+@Ref(url = "https://github.com/mictaege/arete-gradle/issues/{0}", project = "arete-gradle")
 annotation class GithubRef(val value: String)
 
 @Target(AnnotationTarget.CLASS)

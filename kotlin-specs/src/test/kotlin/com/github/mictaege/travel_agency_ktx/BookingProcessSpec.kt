@@ -69,7 +69,9 @@ class BookingProcessSpec : Spec({
             ),
             refs = listOf(
                 ref(GithubRef::class, "14"),
-                ref("16", url = "https://github.com/mictaege/arete-gradle/issues/")
+                ref("16", url = "https://github.com/mictaege/arete-gradle/issues/", project = "arete-gradle"),
+                ref("5", url = "https://github.com/mictaege/arete/issues/", project = "arete"),
+                ref("6", url = "https://github.com/mictaege/arete/issues/", project = "arete")
             ),
             tags = listOf(ActorTraveller::class, ActorAccommodation::class, EntityRoom::class, FlowBooking::class,
                 ExternalPaymentService::class)

@@ -27,6 +27,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
         """
 )
 @EntityOffer @FlowMediation
+@Ref(url = "https://github.com/mictaege/arete/issues/", value = "4", project = "arete")
 class ComplaintMediationSpec {
 
     @RegisterExtension

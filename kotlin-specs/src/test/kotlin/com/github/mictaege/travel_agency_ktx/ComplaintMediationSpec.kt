@@ -2,6 +2,7 @@ package com.github.mictaege.travel_agency_ktx
 
 import com.github.mictaege.arete.ScreenshotExtension
 import com.github.mictaege.arete_ktx.Spec
+import com.github.mictaege.arete_ktx.ref
 import com.github.mictaege.travel_agency.*
 import com.github.mictaege.travel_agency.Bed.KING
 import com.github.mictaege.travel_agency.Facilities.*
@@ -32,7 +33,8 @@ class ComplaintMediationSpec : Spec({
                 >
                 > As a *travel agency*, I want to *process complaints* efficiently, so that I can *resolve issues* and *maintain both, customer and accommodation trust*.
             """.trimIndent(),
-            tags = listOf(EntityOffer::class, FlowMediation::class)
+            tags = listOf(EntityOffer::class, FlowMediation::class),
+            refs = listOf(ref("4", url = "https://github.com/mictaege/arete/issues/", project = "arete"))
         )
         registerExtension(ScreenshotExtension(UiDummyScreenshotTaker()))
         beforeAll {
